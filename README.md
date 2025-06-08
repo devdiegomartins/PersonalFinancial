@@ -1,7 +1,23 @@
-# Tauri + React + Typescript
+### Generate build from WSL, Linux or MacOs to Windows
+Install follow packages:
+```bash
+# WSL or Ubuntu
+sudo apt-get install mingw-w64 nsis
+```
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+```bash
+# MacOS
+brew install mingw-w64 nsis
+```
 
-## Recommended IDE Setup
+Next, install the rust target to windows
+```bash
+rustup target add x86_64-pc-windows-gnu
+```
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+And now compile to windows
+```bash
+bunx tauri build --target x86_64-pc-windows-gnu
+```
+
+File was builded in `src-tauri/target/x86_64-pc-windows-gnu/release/bundle/windows/AppName.exe`.
