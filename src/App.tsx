@@ -1,7 +1,6 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
-import appConfig from "../package.json"
 import "./App.css";
 
 function App() {
@@ -15,7 +14,7 @@ function App() {
 
   return (
     <main className="container">
-      <h1>Welcome to Tauri + React With {appConfig.name}</h1>
+      <h1>Welcome to Tauri + React com HotReload</h1>
 
       <div className="row">
         <a href="https://vitejs.dev" target="_blank">
