@@ -4,14 +4,12 @@ use std::path::Path;
 
 pub enum DatabaseKind {
     AppInfo,
-    Sync,
 }
 
 impl DatabaseKind {
     pub fn filename(&self) -> &'static str {
         match self {
             DatabaseKind::AppInfo => "app_info.sqlite",
-            DatabaseKind::Sync => "sync.sqlite",
         }
     }
 }

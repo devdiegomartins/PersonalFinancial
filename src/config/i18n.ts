@@ -5,7 +5,7 @@ import Backend from "i18next-http-backend";
 
 export const SUPPORTED_LANGUAGES = ['en', 'br', 'es']
 
-const namespaces = ['common']
+const namespaces = ['common', 'system']
 
 i18next.use(LanguageDetector).use(initReactI18next).use(Backend).init({
   returnObjects: true,

@@ -12,9 +12,23 @@
     "app": {
         "windows": [
             {
-                "title": "personal.financial",
-                "width": 800,
-                "height": 600
+                "label": "main",
+                "visible": false,
+                "url": "index.html"
+            },
+            {
+                "label": "splash",
+                "url": "splash.html",
+                "decorations": false,
+                "resizable": false,
+                "width": 500.0,
+                "height": 140.0,
+                "center": true
+            },
+            {
+                "label": "debug_error",
+                "url": "debug_error.html",
+                "visible": false
             }
         ],
         "security": {
@@ -23,7 +37,7 @@
     },
     "bundle": {
         "active": true,
-        "targets": "all",
+        "targets": ["msi", "dmg", "deb"],
         "icon": [
             "icons/32x32.png",
             "icons/128x128.png",

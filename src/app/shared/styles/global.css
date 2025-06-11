@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+* {
+    @apply antialiased;
+    box-sizing: border-box;
+}
+
+*::selection {
+    background-color: transparent;
+    color: inherit;
+}
