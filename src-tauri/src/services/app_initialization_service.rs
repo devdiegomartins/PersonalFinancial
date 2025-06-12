@@ -17,18 +17,13 @@ pub fn set_core_initialization(app: AppHandle, state: State<'_, Mutex<SetupState
 }
 
 fn core_initialization(app: AppHandle) {
-    println!(
-        "Core initialization with app: {:?}",
-        app.try_state::<Mutex<SetupState>>()
-            .unwrap()
-            .lock()
-            .unwrap()
-            .backend_task
-    );
+    let splash_window = app.get_webview_window("splash").unwrap();
+    let main_window = app.get_webview_window("main").unwrap();
+    splash_window.close().unwrap();
+    main_window.show().unwrap();
 }
 
 pub async fn initialize_app(app: AppHandle) {
-    println!("Initializing app: {:?}", app);
     let app_clone = app.clone();
     set_core_initialization(app, app_clone.state::<Mutex<SetupState>>(), "backend");
 }
