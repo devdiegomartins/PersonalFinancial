@@ -1,35 +1,28 @@
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-mod db;
-mod models;
-mod services;
-mod tauri_commands;
+mod api;
+mod application;
+mod config;
+mod domain;
+mod errors;
+mod infrastructure;
 
-use crate::services::app_initialization_service::initialize_app;
-use crate::tauri_commands::{get_app_info_db, set_frontend_initialized};
-use std::sync::Mutex;
-use tauri::async_runtime::spawn;
-
-pub struct SetupState {
-    frontend_task: bool,
-    backend_task: bool,
-}
+use crate::api::register_handlers;
+use crate::application::services::app_service::setup_app;
+use crate::infrastructure::manager::manager_states;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    tauri::Builder::default()
-        .manage(Mutex::new(SetupState {
-            frontend_task: false,
-            backend_task: false,
-        }))
-        .invoke_handler(tauri::generate_handler![
-            get_app_info_db,
-            set_frontend_initialized
-        ])
+    let builder = tauri::Builder::default().plugin(tauri_plugin_opener::init());
+
+    let builder = manager_states(builder).unwrap();
+
+    let builder = register_handlers(builder).unwrap();
+
+    builder
         .setup(|app| {
-            spawn(initialize_app(app.handle().clone()));
+            setup_app(app).unwrap();
+
             Ok(())
         })
-        .plugin(tauri_plugin_opener::init())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

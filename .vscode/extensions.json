@@ -3,6 +3,7 @@
     "vadimcn.vscode-lldb",
     "dustypomerleau.rust-syntax",
     "biomejs.biome",
-    "serayuzgur.crates"
+    "serayuzgur.crates",
+    "1yib.rust-bundle"
   ]
 }

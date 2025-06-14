@@ -10,7 +10,7 @@ export function SplashProvider() {
 			console.log({ currentWindow })
 
 			if (currentWindow === 'splash') {
-				await invoke('set_frontend_initialized')
+				await invoke('app_initialize')
 			}
 		}
 
