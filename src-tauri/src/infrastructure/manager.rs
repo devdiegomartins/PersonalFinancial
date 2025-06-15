@@ -1,6 +1,6 @@
 use chrono::Utc;
 use std::sync::{Arc, Mutex};
-use tauri::{generate_handler, Builder, Wry};
+use tauri::{Builder, Wry};
 
 use crate::domain::app::{AppStatus, AppStatusCode};
 

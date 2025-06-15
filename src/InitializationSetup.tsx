@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { SplashProvider } from './app/shared/providers/windows/SplashProvider'
+import { InitializationSetupProvider } from './app/shared/providers/windows/InitializationSetupProvider'
 
 ReactDOM.createRoot(document.getElementById('app') as HTMLElement).render(
 	<React.StrictMode>
-		<SplashProvider />
+		<InitializationSetupProvider />
 	</React.StrictMode>,
 )

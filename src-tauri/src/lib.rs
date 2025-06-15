@@ -1,6 +1,7 @@
 mod api;
 mod application;
 mod config;
+mod db;
 mod domain;
 mod errors;
 mod infrastructure;

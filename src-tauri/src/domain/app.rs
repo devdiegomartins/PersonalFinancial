@@ -26,7 +26,19 @@ impl AppStatus {
 }
 
 #[derive(Debug, Clone)]
-pub struct AppVersion {}
+pub struct AppVersion {
+    pub id: i32,
+    pub version: String,
+    pub created_at: DateTime<Utc>,
+}
+
+#[derive(Debug, Clone)]
+pub struct AppSession {
+    pub id: String,
+    pub status: AppStatusCode,
+    pub updated_at: DateTime<Utc>,
+    pub created_at: DateTime<Utc>,
+}
 
 #[derive(Debug, Clone)]
 pub enum AppStatusCode {

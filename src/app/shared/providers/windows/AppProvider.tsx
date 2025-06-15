@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
-import { I18nProvider } from './I18nProvider'
-import { ThemeProvider } from './ThemeProvider'
+import { I18nProvider } from '../I18nProvider'
+import { ThemeProvider } from '../ThemeProvider'
 import { useEffect } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 

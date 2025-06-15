@@ -26,6 +26,11 @@
                 "center": true
             },
             {
+                "label": "initialization_setup",
+                "url": "templates/initialization_setup.html",
+                "visible": false
+            },
+            {
                 "label": "debug_error",
                 "url": "templates/debug_error.html",
                 "visible": false
