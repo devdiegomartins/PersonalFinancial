@@ -1,52 +1,68 @@
 use crate::db::statement::prepare_statement;
-use crate::domain::app::{AppSession, AppVersion};
+use crate::domain::app::{AppSession, AppStatusCode, AppVersion};
 use rusqlite::Connection;
 
 pub fn get_app_session(conn: &Connection) -> Result<AppSession, String> {
     let mut statement = prepare_statement(
         conn,
-        "SELECT id, status, updated_at, created_at LIMIT 1 ORDER BY id DESC",
-    )?;
+        "SELECT id, status, updated_at, created_at FROM app_session ORDER BY id DESC LIMIT 1",
+    )
+    .map_err(|e| e.to_string())?;
 
-    let app_session = statement
-        .query_map([], |row| {
-            Ok(AppSession {
-                id: row.get(0),
-                status: row.get(1),
-                updated_at: row.get(2),
-                created_at: row.get(3),
-            })
+    let mut rows = statement.query([]).map_err(|e| e.to_string())?;
+
+    if let Some(row) = rows.next().map_err(|e| e.to_string())? {
+        let id: String = row.get(0).map_err(|e| e.to_string())?;
+        let status_str: String = row.get(1).map_err(|e| e.to_string())?;
+        let status: AppStatusCode = match status_str.as_str() {
+            "Initializing" => AppStatusCode::Initializing,
+            "Initialized" => AppStatusCode::Initialized,
+            "CheckingDatabase" => AppStatusCode::CheckingDatabase,
+            "Syncing" => AppStatusCode::Syncing,
+            "Completed" => AppStatusCode::Completed,
+            _ => AppStatusCode::Error(status_str.into()),
+        };
+        let updated_at_str: String = row.get(2).map_err(|e| e.to_string())?;
+        let updated_at = chrono::DateTime::parse_from_rfc3339(&updated_at_str)
+            .map_err(|e| e.to_string())?
+            .with_timezone(&chrono::Utc);
+        let created_at_str: String = row.get(3).map_err(|e| e.to_string())?;
+        let created_at = chrono::DateTime::parse_from_rfc3339(&created_at_str)
+            .map_err(|e| e.to_string())?
+            .with_timezone(&chrono::Utc);
+        Ok(AppSession {
+            id,
+            status,
+            updated_at,
+            created_at,
         })
-        .map_err(|e| String::from(e))
-        .next();
-
-    match app_session {
-        Some(Ok(app_info)) => Ok(app_info),
-        _ => Err(String::from("App info not found")),
+    } else {
+        Err("App info not found".to_string())
     }
 }
 
-pub fn get_db_version(conn: &Connection) -> Result<(), &str> {
+pub fn get_db_version(conn: &Connection) -> Result<AppVersion, String> {
     let mut statement = prepare_statement(
         conn,
-        "SELECT id, version, created_at LIMIT 1 ORDER BY id DESC",
-    )?;
+        "SELECT id, version, created_at FROM app_version ORDER BY id DESC LIMIT 1",
+    )
+    .map_err(|e| e.to_string())?;
 
-    let db_version = statement
-        .query_map([], |row| {
-            Ok(AppVersion {
-                id: row.get(0),
-                version: row.get(1),
-                created_at: row.get(3),
-            })
+    let mut rows = statement.query([]).map_err(|e| e.to_string())?;
+
+    if let Some(row) = rows.next().map_err(|e| e.to_string())? {
+        let id: i32 = row.get(0).map_err(|e| e.to_string())?;
+        let version: String = row.get(1).map_err(|e| e.to_string())?;
+        let created_at_str: String = row.get(2).map_err(|e| e.to_string())?;
+        let created_at = chrono::DateTime::parse_from_rfc3339(&created_at_str)
+            .map_err(|e| e.to_string())?
+            .with_timezone(&chrono::Utc);
+        Ok(AppVersion {
+            id,
+            version,
+            created_at,
         })
-        .map_err(|e| String::from(e))
-        .next();
-
-    match db_version {
-        Some(Ok(db_version)) => Ok(db_version),
-        _ => Err(String::from("App db version not found")),
-    };
-
-    Ok(())
+    } else {
+        Err("App db version not found".to_string())
+    }
 }
