@@ -1,9 +1,6 @@
 {
-	"editor.highlightModifiedTabs": true,
-	"editor.guides.highlightActiveBracketPair": true,
-	"editor.formatOnSave": true,
-	"editor.formatOnPaste": true,
-	"[typescriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	}
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.guides.highlightActiveIndentation": "always",
+    "editor.guides.highlightActiveBracketPair": true
 }

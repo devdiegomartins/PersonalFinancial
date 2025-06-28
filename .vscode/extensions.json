@@ -1,10 +1,11 @@
 {
-  "recommendations": [
-    "vadimcn.vscode-lldb",
-    "dustypomerleau.rust-syntax",
-    "biomejs.biome",
-    "serayuzgur.crates",
-    "1yib.rust-bundle",
-    "qufiwefefwoyn.inline-sql-syntax"
-  ]
+    "recommendations": [
+        "vadimcn.vscode-lldb",
+        "serayuzgur.crates",
+        "tamasfe.even-better-toml",
+        "editorconfig.editorconfig",
+        "rust-lang.rust-analyzer",
+        "dustypomerleau.rust-syntax",
+        "slint.slint"
+    ]
 }
