@@ -3,6 +3,9 @@ name = "personal_financial"
 version = "0.1.0"
 edition = "2024"
 
+[workspace]
+members = ["engine-data", "engine-id"]
+
 [dependencies]
 aes-gcm = "0.10"
 bincode = "2.0"
