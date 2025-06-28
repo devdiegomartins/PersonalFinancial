@@ -6,7 +6,6 @@
         "editorconfig.editorconfig",
         "rust-lang.rust-analyzer",
         "dustypomerleau.rust-syntax",
-        "slint.slint",
         "rust-lang.rust"
     ]
 }
