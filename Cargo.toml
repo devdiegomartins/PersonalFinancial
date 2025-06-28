@@ -1,11 +1,12 @@
 [package]
-name = "PersonalFinancial"
+name = "personal_financial"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 aes-gcm = "0.10"
 bincode = "2.0"
+chrono = { version = "0.4", features = ["serde"] }
 dirs-next = "2.0"
 rand = "0.9"
 serde = { version = "1.0", features = ["derive"] }

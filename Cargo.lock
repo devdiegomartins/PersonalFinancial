@@ -3,19 +3,6 @@
 version = 4
 
 [[package]]
-name = "PersonalFinancial"
-version = "0.1.0"
-dependencies = [
- "aes-gcm",
- "bincode",
- "dirs-next",
- "rand 0.9.1",
- "serde",
- "slint",
- "slint-build",
-]
-
-[[package]]
 name = "ab_glyph"
 version = "0.2.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -787,6 +774,7 @@ dependencies = [
  "iana-time-zone",
  "js-sys",
  "num-traits",
+ "serde",
  "wasm-bindgen",
  "windows-link",
 ]
@@ -3311,6 +3299,20 @@ name = "percent-encoding"
 version = "2.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e3148f5046208a5d56bcfc03053e3ca6334e51da8dfb19b6cdc8b306fae3283e"
+
+[[package]]
+name = "personal_financial"
+version = "0.1.0"
+dependencies = [
+ "aes-gcm",
+ "bincode",
+ "chrono",
+ "dirs-next",
+ "rand 0.9.1",
+ "serde",
+ "slint",
+ "slint-build",
+]
 
 [[package]]
 name = "pico-args"

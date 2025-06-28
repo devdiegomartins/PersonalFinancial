@@ -1,6 +1,4 @@
-slint::include_modules!();
-
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 fn main() {
-    let main_window = MainWindow::new().unwrap();
-    main_window.run().unwrap();
+    personal_financial::run()
 }
