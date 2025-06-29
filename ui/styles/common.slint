@@ -1,0 +1,429 @@
+// Design System - Propriedades Comuns
+// Baseado no Material Design 3
+
+import { material-palette } from "./palette.slint";
+
+// ===== TAMANHOS E ESPAÇAMENTOS =====
+
+// Sistema de espaçamento (8dp grid)
+export struct Spacing {
+    // Espaçamentos base
+    xs: 4px;
+    sm: 8px;
+    md: 16px;
+    lg: 24px;
+    xl: 32px;
+    xxl: 48px;
+    xxxl: 64px;
+    
+    // Espaçamentos específicos
+    button-padding: 16px;
+    card-padding: 16px;
+    section-padding: 24px;
+    page-padding: 16px;
+    
+    // Margens
+    margin-xs: 4px;
+    margin-sm: 8px;
+    margin-md: 16px;
+    margin-lg: 24px;
+    margin-xl: 32px;
+    
+    // Padding
+    padding-xs: 4px;
+    padding-sm: 8px;
+    padding-md: 16px;
+    padding-lg: 24px;
+    padding-xl: 32px;
+}
+
+// Tamanhos de componentes
+export struct Sizes {
+    // Alturas de botões
+    button-height-small: 32px;
+    button-height-medium: 40px;
+    button-height-large: 48px;
+    button-height-extra-large: 56px;
+    
+    // Larguras mínimas
+    button-min-width: 64px;
+    card-min-width: 280px;
+    input-min-width: 200px;
+    
+    // Tamanhos de ícones
+    icon-size-xs: 16px;
+    icon-size-sm: 20px;
+    icon-size-md: 24px;
+    icon-size-lg: 32px;
+    icon-size-xl: 40px;
+    
+    // Tamanhos de avatar
+    avatar-size-xs: 24px;
+    avatar-size-sm: 32px;
+    avatar-size-md: 40px;
+    avatar-size-lg: 56px;
+    avatar-size-xl: 72px;
+    
+    // Tamanhos de chips
+    chip-height: 32px;
+    chip-min-width: 64px;
+    
+    // Tamanhos de cards
+    card-width-small: 280px;
+    card-width-medium: 320px;
+    card-width-large: 400px;
+    card-width-extra-large: 600px;
+}
+
+// ===== BREAKPOINTS =====
+
+export struct Breakpoints {
+    // Breakpoints para responsividade
+    mobile: 600px;
+    tablet: 900px;
+    desktop: 1200px;
+    wide: 1600px;
+    
+    // Larguras máximas de conteúdo
+    max-width-mobile: 100%;
+    max-width-tablet: 900px;
+    max-width-desktop: 1200px;
+    max-width-wide: 1600px;
+    
+    // Containers
+    container-padding-mobile: 16px;
+    container-padding-tablet: 24px;
+    container-padding-desktop: 32px;
+}
+
+// ===== BORDAS E RADIUS =====
+
+export struct Borders {
+    // Border radius
+    radius-none: 0px;
+    radius-xs: 4px;
+    radius-sm: 8px;
+    radius-md: 12px;
+    radius-lg: 16px;
+    radius-xl: 20px;
+    radius-xxl: 24px;
+    radius-full: 50%;
+    
+    // Border radius específicos
+    button-radius: 20px;
+    card-radius: 12px;
+    chip-radius: 16px;
+    input-radius: 4px;
+    avatar-radius: 50%;
+    
+    // Border width
+    border-width-none: 0px;
+    border-width-thin: 1px;
+    border-width-medium: 2px;
+    border-width-thick: 3px;
+    
+    // Border colors
+    border-color: material-palette.outline.outline;
+    border-color-variant: material-palette.outline.outline-variant;
+    border-color-error: material-palette.error.error-40;
+    border-color-focus: material-palette.primary.primary-40;
+}
+
+// ===== SOMBRAS E ELEVAÇÃO =====
+
+export struct Shadows {
+    // Sombras baseadas na elevação do Material Design 3
+    elevation-0: none;
+    elevation-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+    elevation-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+    elevation-3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.30);
+    elevation-4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 4px 0px rgba(0, 0, 0, 0.30);
+    elevation-5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 6px 0px rgba(0, 0, 0, 0.30);
+    
+    // Sombras específicas
+    card-shadow: elevation-1;
+    button-shadow: elevation-1;
+    floating-action-button-shadow: elevation-3;
+    navigation-drawer-shadow: elevation-4;
+    modal-shadow: elevation-5;
+    
+    // Sombras de estado
+    button-shadow-hover: elevation-2;
+    button-shadow-pressed: elevation-1;
+    card-shadow-hover: elevation-2;
+}
+
+// ===== TIPOGRAFIA =====
+
+export struct Typography {
+    // Tamanhos de fonte
+    font-size-xs: 12px;
+    font-size-sm: 14px;
+    font-size-md: 16px;
+    font-size-lg: 20px;
+    font-size-xl: 24px;
+    font-size-xxl: 32px;
+    font-size-xxxl: 40px;
+    
+    // Pesos de fonte
+    font-weight-light: 300;
+    font-weight-regular: 400;
+    font-weight-medium: 500;
+    font-weight-semibold: 600;
+    font-weight-bold: 700;
+    
+    // Altura de linha
+    line-height-tight: 1.2;
+    line-height-normal: 1.4;
+    line-height-relaxed: 1.6;
+    line-height-loose: 1.8;
+    
+    // Espaçamento entre letras
+    letter-spacing-tight: -0.5px;
+    letter-spacing-normal: 0px;
+    letter-spacing-wide: 0.5px;
+    letter-spacing-wider: 1px;
+    
+    // Estilos de texto específicos
+    display-large: {
+        font-size: 57px;
+        font-weight: 400;
+        line-height: 64px;
+        letter-spacing: -0.25px;
+    }
+    
+    display-medium: {
+        font-size: 45px;
+        font-weight: 400;
+        line-height: 52px;
+        letter-spacing: 0px;
+    }
+    
+    display-small: {
+        font-size: 36px;
+        font-weight: 400;
+        line-height: 44px;
+        letter-spacing: 0px;
+    }
+    
+    headline-large: {
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 40px;
+        letter-spacing: 0px;
+    }
+    
+    headline-medium: {
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 36px;
+        letter-spacing: 0px;
+    }
+    
+    headline-small: {
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 32px;
+        letter-spacing: 0px;
+    }
+    
+    title-large: {
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 28px;
+        letter-spacing: 0px;
+    }
+    
+    title-medium: {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0.15px;
+    }
+    
+    title-small: {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+    }
+    
+    label-large: {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+    }
+    
+    label-medium: {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+    }
+    
+    label-small: {
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+    }
+    
+    body-large: {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0.5px;
+    }
+    
+    body-medium: {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0.25px;
+    }
+    
+    body-small: {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0.4px;
+    }
+}
+
+// ===== ANIMAÇÕES E TRANSITIONS =====
+
+export struct Animations {
+    // Durações
+    duration-fast: 150ms;
+    duration-normal: 250ms;
+    duration-slow: 350ms;
+    duration-extra-slow: 500ms;
+    
+    // Curvas de easing
+    easing-standard: cubic-bezier(0.2, 0, 0, 1);
+    easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+    easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+    easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+    
+    // Transições específicas
+    button-transition: duration-normal easing-standard;
+    card-transition: duration-normal easing-standard;
+    modal-transition: duration-slow easing-emphasized;
+    ripple-transition: duration-fast easing-emphasized-accelerate;
+}
+
+// ===== Z-INDEX =====
+
+export struct ZIndex {
+    // Níveis de z-index
+    z-dropdown: 1000;
+    z-sticky: 1020;
+    z-fixed: 1030;
+    z-modal-backdrop: 1040;
+    z-modal: 1050;
+    z-popover: 1060;
+    z-tooltip: 1070;
+    z-toast: 1080;
+}
+
+// ===== LAYOUT =====
+
+export struct Layout {
+    // Grid
+    grid-columns: 12;
+    grid-gutter: 16px;
+    grid-margin: 16px;
+    
+    // Flexbox
+    flex-gap-xs: 4px;
+    flex-gap-sm: 8px;
+    flex-gap-md: 16px;
+    flex-gap-lg: 24px;
+    flex-gap-xl: 32px;
+    
+    // Aspect ratios
+    aspect-ratio-square: 1;
+    aspect-ratio-video: 16/9;
+    aspect-ratio-photo: 4/3;
+    aspect-ratio-banner: 21/9;
+}
+
+// ===== ESTADOS =====
+
+export struct States {
+    // Opacidades
+    opacity-disabled: 0.38;
+    opacity-hover: 0.08;
+    opacity-focus: 0.12;
+    opacity-selected: 0.16;
+    opacity-activated: 0.12;
+    opacity-pressed: 0.12;
+    opacity-dragged: 0.16;
+    
+    // Estados de foco
+    focus-ring-width: 2px;
+    focus-ring-offset: 2px;
+    focus-ring-color: material-palette.primary.primary-40;
+}
+
+// ===== COMPONENTES ESPECÍFICOS =====
+
+export struct Components {
+    // App Bar
+    app-bar-height: 64px;
+    app-bar-elevation: elevation-2;
+    
+    // Navigation Drawer
+    navigation-drawer-width: 320px;
+    navigation-drawer-elevation: elevation-4;
+    
+    // Bottom Navigation
+    bottom-navigation-height: 80px;
+    bottom-navigation-elevation: elevation-8;
+    
+    // Floating Action Button
+    fab-size-small: 40px;
+    fab-size-medium: 56px;
+    fab-size-large: 96px;
+    fab-elevation: elevation-3;
+    
+    // Snackbar
+    snackbar-height: 48px;
+    snackbar-elevation: elevation-6;
+    
+    // Tooltip
+    tooltip-max-width: 200px;
+    tooltip-elevation: elevation-3;
+}
+
+// ===== ESTRUTURA PRINCIPAL =====
+
+export struct DesignSystem {
+    spacing: Spacing;
+    sizes: Sizes;
+    breakpoints: Breakpoints;
+    borders: Borders;
+    shadows: Shadows;
+    typography: Typography;
+    animations: Animations;
+    z-index: ZIndex;
+    layout: Layout;
+    states: States;
+    components: Components;
+}
+
+// Instância global do design system
+export global design-system: DesignSystem = {
+    spacing: Spacing,
+    sizes: Sizes,
+    breakpoints: Breakpoints,
+    borders: Borders,
+    shadows: Shadows,
+    typography: Typography,
+    animations: Animations,
+    z-index: ZIndex,
+    layout: Layout,
+    states: States,
+    components: Components,
+};

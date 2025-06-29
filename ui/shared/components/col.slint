@@ -1,0 +1,414 @@
+// Componente Col - Container com flex-direction: column
+// Baseado no design system e Material Design 3
+
+import { design-system } from "../../styles/common.slint";
+
+// Componente base para layout em coluna
+export component Col inherits VerticalLayout {
+    // Propriedades de espaçamento
+    property gap: length = 0px;
+    property padding: length = 0px;
+    property margin: length = 0px;
+    
+    // Propriedades de alinhamento
+    property horizontal-alignment: HorizontalAlignment = HorizontalAlignment.Left;
+    property vertical-alignment: VerticalAlignment = VerticalAlignment.Top;
+    
+    // Propriedades de tamanho
+    property width: length = 100%;
+    property height: length = 100%;
+    property min-width: length = 0px;
+    property min-height: length = 0px;
+    property max-width: length = 100%;
+    property max-height: length = 100%;
+    
+    // Propriedades de background
+    property background-color: brush = transparent;
+    property border-color: brush = transparent;
+    property border-width: length = 0px;
+    property border-radius: length = 0px;
+    
+    // Propriedades de sombra
+    property elevation: length = 0px;
+    property shadow: brush = transparent;
+    
+    // Propriedades de overflow
+    property overflow-x: Overflow = Overflow.Visible;
+    property overflow-y: Overflow = Overflow.Visible;
+    
+    // Propriedades de scroll
+    property scroll-x: bool = false;
+    property scroll-y: bool = false;
+    
+    // Propriedades de wrap
+    property wrap: bool = false;
+    
+    // Aplicar propriedades ao layout
+    spacing: self.gap;
+    padding: self.padding;
+    margin: self.margin;
+    alignment: self.horizontal-alignment;
+    vertical-alignment: self.vertical-alignment;
+    width: self.width;
+    height: self.height;
+    min-width: self.min-width;
+    min-height: self.min-height;
+    max-width: self.max-width;
+    max-height: self.max-height;
+    background: self.background-color;
+    border-color: self.border-color;
+    border-width: self.border-width;
+    border-radius: self.border-radius;
+    box-shadow: self.shadow;
+    overflow-x: self.overflow-x;
+    overflow-y: self.overflow-y;
+}
+
+// ===== VARIAÇÕES DE ESPAÇAMENTO =====
+
+// Col com espaçamento extra pequeno
+export component ColXS inherits Col {
+    gap: design-system.spacing.xs;
+    padding: design-system.spacing.xs;
+}
+
+// Col com espaçamento pequeno
+export component ColSM inherits Col {
+    gap: design-system.spacing.sm;
+    padding: design-system.spacing.sm;
+}
+
+// Col com espaçamento médio
+export component ColMD inherits Col {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.md;
+}
+
+// Col com espaçamento grande
+export component ColLG inherits Col {
+    gap: design-system.spacing.lg;
+    padding: design-system.spacing.lg;
+}
+
+// Col com espaçamento extra grande
+export component ColXL inherits Col {
+    gap: design-system.spacing.xl;
+    padding: design-system.spacing.xl;
+}
+
+// Col com espaçamento extra extra grande
+export component ColXXL inherits Col {
+    gap: design-system.spacing.xxl;
+    padding: design-system.spacing.xxl;
+}
+
+// ===== VARIAÇÕES DE ALINHAMENTO =====
+
+// Col centralizado horizontalmente
+export component ColCenter inherits Col {
+    horizontal-alignment: HorizontalAlignment.Center;
+}
+
+// Col alinhado à direita
+export component ColRight inherits Col {
+    horizontal-alignment: HorizontalAlignment.Right;
+}
+
+// Col com espaço entre itens
+export component ColSpaceBetween inherits Col {
+    horizontal-alignment: HorizontalAlignment.SpaceBetween;
+}
+
+// Col com espaço ao redor dos itens
+export component ColSpaceAround inherits Col {
+    horizontal-alignment: HorizontalAlignment.SpaceAround;
+}
+
+// Col centralizado verticalmente
+export component ColVCenter inherits Col {
+    vertical-alignment: VerticalAlignment.Center;
+}
+
+// Col alinhado ao fundo
+export component ColVBottom inherits Col {
+    vertical-alignment: VerticalAlignment.Bottom;
+}
+
+// Col totalmente centralizado
+export component ColCentered inherits Col {
+    horizontal-alignment: HorizontalAlignment.Center;
+    vertical-alignment: VerticalAlignment.Center;
+}
+
+// ===== VARIAÇÕES DE TAMANHO =====
+
+// Col com largura fixa
+export component ColFixed inherits Col {
+    width: 100%;
+    min-width: 0px;
+    max-width: none;
+}
+
+// Col com largura mínima
+export component ColMinWidth inherits Col {
+    min-width: design-system.sizes.card-min-width;
+}
+
+// Col com altura mínima
+export component ColMinHeight inherits Col {
+    min-height: design-system.sizes.button-height-large;
+}
+
+// Col com largura máxima
+export component ColMaxWidth inherits Col {
+    max-width: design-system.breakpoints.max-width-tablet;
+}
+
+// Col responsivo
+export component ColResponsive inherits Col {
+    width: 100%;
+    max-width: design-system.breakpoints.max-width-desktop;
+}
+
+// ===== VARIAÇÕES DE BACKGROUND =====
+
+// Col com background de superfície
+export component ColSurface inherits Col {
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// Col com background de card
+export component ColCard inherits Col {
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.card-radius;
+    padding: design-system.spacing.card-padding;
+    box-shadow: design-system.shadows.card-shadow;
+}
+
+// Col com background primário
+export component ColPrimary inherits Col {
+    background-color: design-system.borders.border-color-focus;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// Col com background secundário
+export component ColSecondary inherits Col {
+    background-color: design-system.borders.border-color-variant;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// ===== VARIAÇÕES DE BORDA =====
+
+// Col com borda
+export component ColBordered inherits Col {
+    border-color: design-system.borders.border-color;
+    border-width: design-system.borders.border-width-thin;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// Col com borda arredondada
+export component ColRounded inherits Col {
+    border-radius: design-system.borders.radius-lg;
+    padding: design-system.spacing.md;
+}
+
+// Col com borda circular
+export component ColCircular inherits Col {
+    border-radius: design-system.borders.radius-full;
+    padding: design-system.spacing.md;
+}
+
+// ===== VARIAÇÕES DE ELEVAÇÃO =====
+
+// Col com elevação baixa
+export component ColElevated inherits Col {
+    box-shadow: design-system.shadows.elevation-1;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// Col com elevação média
+export component ColElevatedMD inherits Col {
+    box-shadow: design-system.shadows.elevation-2;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// Col com elevação alta
+export component ColElevatedLG inherits Col {
+    box-shadow: design-system.shadows.elevation-3;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// ===== VARIAÇÕES DE SCROLL =====
+
+// Col com scroll vertical
+export component ColScrollY inherits Col {
+    scroll-y: true;
+    overflow-y: Overflow.Scroll;
+    max-height: 100%;
+}
+
+// Col com scroll horizontal
+export component ColScrollX inherits Col {
+    scroll-x: true;
+    overflow-x: Overflow.Scroll;
+    max-width: 100%;
+}
+
+// Col com scroll em ambas as direções
+export component ColScroll inherits Col {
+    scroll-x: true;
+    scroll-y: true;
+    overflow-x: Overflow.Scroll;
+    overflow-y: Overflow.Scroll;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+// ===== COMPONENTES COMPOSTOS =====
+
+// Col para seções de página
+export component ColSection inherits Col {
+    gap: design-system.spacing.lg;
+    padding: design-system.spacing.section-padding;
+    margin-bottom: design-system.spacing.lg;
+}
+
+// Col para cards
+export component ColCard inherits Col {
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.card-radius;
+    padding: design-system.spacing.card-padding;
+    box-shadow: design-system.shadows.card-shadow;
+    gap: design-system.spacing.md;
+}
+
+// Col para formulários
+export component ColForm inherits Col {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.md;
+    width: 100%;
+    max-width: design-system.sizes.card-width-medium;
+}
+
+// Col para listas
+export component ColList inherits Col {
+    gap: design-system.spacing.sm;
+    padding: design-system.spacing.md;
+    width: 100%;
+}
+
+// Col para navegação
+export component ColNav inherits Col {
+    gap: design-system.spacing.sm;
+    padding: design-system.spacing.md;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+}
+
+// Col para tooltips
+export component ColTooltip inherits Col {
+    gap: design-system.spacing.xs;
+    padding: design-system.spacing.sm;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    box-shadow: design-system.shadows.tooltip-elevation;
+    max-width: design-system.components.tooltip-max-width;
+}
+
+// Col para modais
+export component ColModal inherits Col {
+    gap: design-system.spacing.lg;
+    padding: design-system.spacing.xl;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-lg;
+    box-shadow: design-system.shadows.modal-shadow;
+    max-width: design-system.sizes.card-width-large;
+    max-height: 80%;
+    overflow-y: Overflow.Scroll;
+}
+
+// ===== COMPONENTES RESPONSIVOS =====
+
+// Col responsivo para mobile
+export component ColMobile inherits Col {
+    width: 100%;
+    padding: design-system.spacing.page-padding;
+    gap: design-system.spacing.md;
+}
+
+// Col responsivo para tablet
+export component ColTablet inherits Col {
+    width: 100%;
+    max-width: design-system.breakpoints.max-width-tablet;
+    padding: design-system.spacing.container-padding-tablet;
+    gap: design-system.spacing.lg;
+}
+
+// Col responsivo para desktop
+export component ColDesktop inherits Col {
+    width: 100%;
+    max-width: design-system.breakpoints.max-width-desktop;
+    padding: design-system.spacing.container-padding-desktop;
+    gap: design-system.spacing.xl;
+}
+
+// ===== COMPONENTES ESPECÍFICOS PARA FINANÇAS =====
+
+// Col para resumo financeiro
+export component ColFinancialSummary inherits Col {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.card-padding;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.card-radius;
+    box-shadow: design-system.shadows.card-shadow;
+}
+
+// Col para transações
+export component ColTransactions inherits Col {
+    gap: design-system.spacing.sm;
+    padding: design-system.spacing.md;
+    width: 100%;
+    max-height: 400px;
+    overflow-y: Overflow.Scroll;
+}
+
+// Col para gráficos
+export component ColChart inherits Col {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.card-padding;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.card-radius;
+    box-shadow: design-system.shadows.card-shadow;
+    min-height: 300px;
+}
+
+// Col para filtros
+export component ColFilters inherits Col {
+    gap: design-system.spacing.sm;
+    padding: design-system.spacing.md;
+    background-color: design-system.borders.border-color-variant;
+    border-radius: design-system.borders.radius-sm;
+    border-width: design-system.borders.border-width-thin;
+    border-color: design-system.borders.border-color;
+}
+
+// Col para estatísticas
+export component ColStats inherits Col {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.card-padding;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.card-radius;
+    box-shadow: design-system.shadows.card-shadow;
+    horizontal-alignment: HorizontalAlignment.Center;
+}

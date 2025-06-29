@@ -7,6 +7,6 @@ mod utils;
 slint::include_modules!();
 
 pub fn run() {
-    let main_window = MainWindow::new().unwrap();
+    let main_window = SplashWindow::new().unwrap();
     main_window.run().unwrap();
 }

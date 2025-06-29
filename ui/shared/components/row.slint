@@ -1,0 +1,521 @@
+// Componente Row - Container com flex-direction: row
+// Baseado no design system e Material Design 3
+
+import { design-system } from "../../styles/common.slint";
+
+// Componente base para layout em linha
+export component Row inherits HorizontalLayout {
+    // Propriedades de espaçamento
+    property gap: length = 0px;
+    property padding: length = 0px;
+    property margin: length = 0px;
+    
+    // Propriedades de alinhamento
+    property horizontal-alignment: HorizontalAlignment = HorizontalAlignment.Left;
+    property vertical-alignment: VerticalAlignment = VerticalAlignment.Top;
+    
+    // Propriedades de tamanho
+    property width: length = 100%;
+    property height: length = 100%;
+    property min-width: length = 0px;
+    property min-height: length = 0px;
+    property max-width: length = 100%;
+    property max-height: length = 100%;
+    
+    // Propriedades de background
+    property background-color: brush = transparent;
+    property border-color: brush = transparent;
+    property border-width: length = 0px;
+    property border-radius: length = 0px;
+    
+    // Propriedades de sombra
+    property elevation: length = 0px;
+    property shadow: brush = transparent;
+    
+    // Propriedades de overflow
+    property overflow-x: Overflow = Overflow.Visible;
+    property overflow-y: Overflow = Overflow.Visible;
+    
+    // Propriedades de scroll
+    property scroll-x: bool = false;
+    property scroll-y: bool = false;
+    
+    // Propriedades de wrap
+    property wrap: bool = false;
+    
+    // Aplicar propriedades ao layout
+    spacing: self.gap;
+    padding: self.padding;
+    margin: self.margin;
+    alignment: self.horizontal-alignment;
+    vertical-alignment: self.vertical-alignment;
+    width: self.width;
+    height: self.height;
+    min-width: self.min-width;
+    min-height: self.min-height;
+    max-width: self.max-width;
+    max-height: self.max-height;
+    background: self.background-color;
+    border-color: self.border-color;
+    border-width: self.border-width;
+    border-radius: self.border-radius;
+    box-shadow: self.shadow;
+    overflow-x: self.overflow-x;
+    overflow-y: self.overflow-y;
+}
+
+// ===== VARIAÇÕES DE ESPAÇAMENTO =====
+
+// Row com espaçamento extra pequeno
+export component RowXS inherits Row {
+    gap: design-system.spacing.xs;
+    padding: design-system.spacing.xs;
+}
+
+// Row com espaçamento pequeno
+export component RowSM inherits Row {
+    gap: design-system.spacing.sm;
+    padding: design-system.spacing.sm;
+}
+
+// Row com espaçamento médio
+export component RowMD inherits Row {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.md;
+}
+
+// Row com espaçamento grande
+export component RowLG inherits Row {
+    gap: design-system.spacing.lg;
+    padding: design-system.spacing.lg;
+}
+
+// Row com espaçamento extra grande
+export component RowXL inherits Row {
+    gap: design-system.spacing.xl;
+    padding: design-system.spacing.xl;
+}
+
+// Row com espaçamento extra extra grande
+export component RowXXL inherits Row {
+    gap: design-system.spacing.xxl;
+    padding: design-system.spacing.xxl;
+}
+
+// ===== VARIAÇÕES DE ALINHAMENTO =====
+
+// Row centralizado horizontalmente
+export component RowCenter inherits Row {
+    horizontal-alignment: HorizontalAlignment.Center;
+}
+
+// Row alinhado à direita
+export component RowRight inherits Row {
+    horizontal-alignment: HorizontalAlignment.Right;
+}
+
+// Row com espaço entre itens
+export component RowSpaceBetween inherits Row {
+    horizontal-alignment: HorizontalAlignment.SpaceBetween;
+}
+
+// Row com espaço ao redor dos itens
+export component RowSpaceAround inherits Row {
+    horizontal-alignment: HorizontalAlignment.SpaceAround;
+}
+
+// Row centralizado verticalmente
+export component RowVCenter inherits Row {
+    vertical-alignment: VerticalAlignment.Center;
+}
+
+// Row alinhado ao fundo
+export component RowVBottom inherits Row {
+    vertical-alignment: VerticalAlignment.Bottom;
+}
+
+// Row totalmente centralizado
+export component RowCentered inherits Row {
+    horizontal-alignment: HorizontalAlignment.Center;
+    vertical-alignment: VerticalAlignment.Center;
+}
+
+// Row com itens distribuídos uniformemente
+export component RowSpaceEvenly inherits Row {
+    horizontal-alignment: HorizontalAlignment.SpaceEvenly;
+}
+
+// ===== VARIAÇÕES DE TAMANHO =====
+
+// Row com largura fixa
+export component RowFixed inherits Row {
+    width: 100%;
+    min-width: 0px;
+    max-width: none;
+}
+
+// Row com largura mínima
+export component RowMinWidth inherits Row {
+    min-width: design-system.sizes.card-min-width;
+}
+
+// Row com altura mínima
+export component RowMinHeight inherits Row {
+    min-height: design-system.sizes.button-height-large;
+}
+
+// Row com largura máxima
+export component RowMaxWidth inherits Row {
+    max-width: design-system.breakpoints.max-width-tablet;
+}
+
+// Row responsivo
+export component RowResponsive inherits Row {
+    width: 100%;
+    max-width: design-system.breakpoints.max-width-desktop;
+}
+
+// ===== VARIAÇÕES DE BACKGROUND =====
+
+// Row com background de superfície
+export component RowSurface inherits Row {
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// Row com background de card
+export component RowCard inherits Row {
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.card-radius;
+    padding: design-system.spacing.card-padding;
+    box-shadow: design-system.shadows.card-shadow;
+}
+
+// Row com background primário
+export component RowPrimary inherits Row {
+    background-color: design-system.borders.border-color-focus;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// Row com background secundário
+export component RowSecondary inherits Row {
+    background-color: design-system.borders.border-color-variant;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// ===== VARIAÇÕES DE BORDA =====
+
+// Row com borda
+export component RowBordered inherits Row {
+    border-color: design-system.borders.border-color;
+    border-width: design-system.borders.border-width-thin;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// Row com borda arredondada
+export component RowRounded inherits Row {
+    border-radius: design-system.borders.radius-lg;
+    padding: design-system.spacing.md;
+}
+
+// Row com borda circular
+export component RowCircular inherits Row {
+    border-radius: design-system.borders.radius-full;
+    padding: design-system.spacing.md;
+}
+
+// ===== VARIAÇÕES DE ELEVAÇÃO =====
+
+// Row com elevação baixa
+export component RowElevated inherits Row {
+    box-shadow: design-system.shadows.elevation-1;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// Row com elevação média
+export component RowElevatedMD inherits Row {
+    box-shadow: design-system.shadows.elevation-2;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// Row com elevação alta
+export component RowElevatedLG inherits Row {
+    box-shadow: design-system.shadows.elevation-3;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    padding: design-system.spacing.md;
+}
+
+// ===== VARIAÇÕES DE SCROLL =====
+
+// Row com scroll horizontal
+export component RowScrollX inherits Row {
+    scroll-x: true;
+    overflow-x: Overflow.Scroll;
+    max-width: 100%;
+}
+
+// Row com scroll vertical
+export component RowScrollY inherits Row {
+    scroll-y: true;
+    overflow-y: Overflow.Scroll;
+    max-height: 100%;
+}
+
+// Row com scroll em ambas as direções
+export component RowScroll inherits Row {
+    scroll-x: true;
+    scroll-y: true;
+    overflow-x: Overflow.Scroll;
+    overflow-y: Overflow.Scroll;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+// ===== COMPONENTES COMPOSTOS =====
+
+// Row para cabeçalhos
+export component RowHeader inherits Row {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.md;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    vertical-alignment: VerticalAlignment.Center;
+}
+
+// Row para navegação
+export component RowNav inherits Row {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.md;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    vertical-alignment: VerticalAlignment.Center;
+}
+
+// Row para toolbar
+export component RowToolbar inherits Row {
+    gap: design-system.spacing.sm;
+    padding: design-system.spacing.md;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    vertical-alignment: VerticalAlignment.Center;
+    horizontal-alignment: HorizontalAlignment.SpaceBetween;
+}
+
+// Row para formulários
+export component RowForm inherits Row {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.md;
+    vertical-alignment: VerticalAlignment.Center;
+    width: 100%;
+}
+
+// Row para listas
+export component RowList inherits Row {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.md;
+    vertical-alignment: VerticalAlignment.Center;
+    width: 100%;
+}
+
+// Row para cards
+export component RowCard inherits Row {
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.card-radius;
+    padding: design-system.spacing.card-padding;
+    box-shadow: design-system.shadows.card-shadow;
+    gap: design-system.spacing.md;
+    vertical-alignment: VerticalAlignment.Center;
+}
+
+// Row para tooltips
+export component RowTooltip inherits Row {
+    gap: design-system.spacing.xs;
+    padding: design-system.spacing.sm;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    box-shadow: design-system.shadows.tooltip-elevation;
+    max-width: design-system.components.tooltip-max-width;
+    vertical-alignment: VerticalAlignment.Center;
+}
+
+// Row para modais
+export component RowModal inherits Row {
+    gap: design-system.spacing.lg;
+    padding: design-system.spacing.xl;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-lg;
+    box-shadow: design-system.shadows.modal-shadow;
+    max-width: design-system.sizes.card-width-large;
+    vertical-alignment: VerticalAlignment.Center;
+}
+
+// ===== COMPONENTES RESPONSIVOS =====
+
+// Row responsivo para mobile
+export component RowMobile inherits Row {
+    width: 100%;
+    padding: design-system.spacing.page-padding;
+    gap: design-system.spacing.md;
+    wrap: true;
+}
+
+// Row responsivo para tablet
+export component RowTablet inherits Row {
+    width: 100%;
+    max-width: design-system.breakpoints.max-width-tablet;
+    padding: design-system.spacing.container-padding-tablet;
+    gap: design-system.spacing.lg;
+}
+
+// Row responsivo para desktop
+export component RowDesktop inherits Row {
+    width: 100%;
+    max-width: design-system.breakpoints.max-width-desktop;
+    padding: design-system.spacing.container-padding-desktop;
+    gap: design-system.spacing.xl;
+}
+
+// ===== COMPONENTES ESPECÍFICOS PARA FINANÇAS =====
+
+// Row para cabeçalho financeiro
+export component RowFinancialHeader inherits Row {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.card-padding;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.card-radius;
+    box-shadow: design-system.shadows.card-shadow;
+    vertical-alignment: VerticalAlignment.Center;
+    horizontal-alignment: HorizontalAlignment.SpaceBetween;
+}
+
+// Row para transação
+export component RowTransaction inherits Row {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.md;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    vertical-alignment: VerticalAlignment.Center;
+    horizontal-alignment: HorizontalAlignment.SpaceBetween;
+    margin-bottom: design-system.spacing.sm;
+}
+
+// Row para estatísticas
+export component RowStats inherits Row {
+    gap: design-system.spacing.lg;
+    padding: design-system.spacing.card-padding;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.card-radius;
+    box-shadow: design-system.shadows.card-shadow;
+    vertical-alignment: VerticalAlignment.Center;
+    horizontal-alignment: HorizontalAlignment.SpaceEvenly;
+}
+
+// Row para filtros
+export component RowFilters inherits Row {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.md;
+    background-color: design-system.borders.border-color-variant;
+    border-radius: design-system.borders.radius-sm;
+    border-width: design-system.borders.border-width-thin;
+    border-color: design-system.borders.border-color;
+    vertical-alignment: VerticalAlignment.Center;
+    wrap: true;
+}
+
+// Row para ações
+export component RowActions inherits Row {
+    gap: design-system.spacing.sm;
+    padding: design-system.spacing.md;
+    vertical-alignment: VerticalAlignment.Center;
+    horizontal-alignment: HorizontalAlignment.Right;
+}
+
+// Row para informações de conta
+export component RowAccountInfo inherits Row {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.md;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    vertical-alignment: VerticalAlignment.Center;
+}
+
+// Row para resumo de categoria
+export component RowCategorySummary inherits Row {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.md;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.radius-sm;
+    vertical-alignment: VerticalAlignment.Center;
+    horizontal-alignment: HorizontalAlignment.SpaceBetween;
+}
+
+// Row para gráfico de barras
+export component RowBarChart inherits Row {
+    gap: design-system.spacing.xs;
+    padding: design-system.spacing.md;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.card-radius;
+    box-shadow: design-system.shadows.card-shadow;
+    vertical-alignment: VerticalAlignment.Bottom;
+    min-height: 200px;
+}
+
+// Row para timeline
+export component RowTimeline inherits Row {
+    gap: design-system.spacing.md;
+    padding: design-system.spacing.md;
+    vertical-alignment: VerticalAlignment.Center;
+    position: relative;
+}
+
+// Row para comparação
+export component RowComparison inherits Row {
+    gap: design-system.spacing.lg;
+    padding: design-system.spacing.card-padding;
+    background-color: design-system.borders.border-color;
+    border-radius: design-system.borders.card-radius;
+    box-shadow: design-system.shadows.card-shadow;
+    vertical-alignment: VerticalAlignment.Center;
+    horizontal-alignment: HorizontalAlignment.SpaceEvenly;
+}
+
+// Row para dashboard
+export component RowDashboard inherits Row {
+    gap: design-system.spacing.lg;
+    padding: design-system.spacing.section-padding;
+    vertical-alignment: VerticalAlignment.Top;
+    wrap: true;
+}
+
+// Row para breadcrumb
+export component RowBreadcrumb inherits Row {
+    gap: design-system.spacing.sm;
+    padding: design-system.spacing.md;
+    vertical-alignment: VerticalAlignment.Center;
+}
+
+// Row para paginação
+export component RowPagination inherits Row {
+    gap: design-system.spacing.sm;
+    padding: design-system.spacing.md;
+    vertical-alignment: VerticalAlignment.Center;
+    horizontal-alignment: HorizontalAlignment.Center;
+}
+
+// Row para status
+export component RowStatus inherits Row {
+    gap: design-system.spacing.sm;
+    padding: design-system.spacing.sm;
+    background-color: design-system.borders.border-color-variant;
+    border-radius: design-system.borders.radius-sm;
+    vertical-alignment: VerticalAlignment.Center;
+}

@@ -1,0 +1,464 @@
+// Componente de Tipografia - Material Design 3
+// Baseado no design system e paleta de cores
+
+import { design-system } from "../../styles/common.slint";
+import { material-palette } from "../../styles/palette.slint";
+
+// ===== COMPONENTES DE TEXTO BASE =====
+
+// Texto Display (para títulos principais)
+export component DisplayLarge inherits Text {
+    font-size: design-system.typography.display-large.font-size;
+    font-weight: design-system.typography.display-large.font-weight;
+    line-height: design-system.typography.display-large.line-height;
+    letter-spacing: design-system.typography.display-large.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+export component DisplayMedium inherits Text {
+    font-size: design-system.typography.display-medium.font-size;
+    font-weight: design-system.typography.display-medium.font-weight;
+    line-height: design-system.typography.display-medium.line-height;
+    letter-spacing: design-system.typography.display-medium.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+export component DisplaySmall inherits Text {
+    font-size: design-system.typography.display-small.font-size;
+    font-weight: design-system.typography.display-small.font-weight;
+    line-height: design-system.typography.display-small.line-height;
+    letter-spacing: design-system.typography.display-small.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+// Texto Headline (para títulos de seção)
+export component HeadlineLarge inherits Text {
+    font-size: design-system.typography.headline-large.font-size;
+    font-weight: design-system.typography.headline-large.font-weight;
+    line-height: design-system.typography.headline-large.line-height;
+    letter-spacing: design-system.typography.headline-large.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+export component HeadlineMedium inherits Text {
+    font-size: design-system.typography.headline-medium.font-size;
+    font-weight: design-system.typography.headline-medium.font-weight;
+    line-height: design-system.typography.headline-medium.line-height;
+    letter-spacing: design-system.typography.headline-medium.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+export component HeadlineSmall inherits Text {
+    font-size: design-system.typography.headline-small.font-size;
+    font-weight: design-system.typography.headline-small.font-weight;
+    line-height: design-system.typography.headline-small.line-height;
+    letter-spacing: design-system.typography.headline-small.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+// Texto Title (para títulos de componentes)
+export component TitleLarge inherits Text {
+    font-size: design-system.typography.title-large.font-size;
+    font-weight: design-system.typography.title-large.font-weight;
+    line-height: design-system.typography.title-large.line-height;
+    letter-spacing: design-system.typography.title-large.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+export component TitleMedium inherits Text {
+    font-size: design-system.typography.title-medium.font-size;
+    font-weight: design-system.typography.title-medium.font-weight;
+    line-height: design-system.typography.title-medium.line-height;
+    letter-spacing: design-system.typography.title-medium.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+export component TitleSmall inherits Text {
+    font-size: design-system.typography.title-small.font-size;
+    font-weight: design-system.typography.title-small.font-weight;
+    line-height: design-system.typography.title-small.line-height;
+    letter-spacing: design-system.typography.title-small.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+// Texto Label (para rótulos e botões)
+export component LabelLarge inherits Text {
+    font-size: design-system.typography.label-large.font-size;
+    font-weight: design-system.typography.label-large.font-weight;
+    line-height: design-system.typography.label-large.line-height;
+    letter-spacing: design-system.typography.label-large.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+export component LabelMedium inherits Text {
+    font-size: design-system.typography.label-medium.font-size;
+    font-weight: design-system.typography.label-medium.font-weight;
+    line-height: design-system.typography.label-medium.line-height;
+    letter-spacing: design-system.typography.label-medium.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+export component LabelSmall inherits Text {
+    font-size: design-system.typography.label-small.font-size;
+    font-weight: design-system.typography.label-small.font-weight;
+    line-height: design-system.typography.label-small.line-height;
+    letter-spacing: design-system.typography.label-small.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+// Texto Body (para conteúdo principal)
+export component BodyLarge inherits Text {
+    font-size: design-system.typography.body-large.font-size;
+    font-weight: design-system.typography.body-large.font-weight;
+    line-height: design-system.typography.body-large.line-height;
+    letter-spacing: design-system.typography.body-large.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+export component BodyMedium inherits Text {
+    font-size: design-system.typography.body-medium.font-size;
+    font-weight: design-system.typography.body-medium.font-weight;
+    line-height: design-system.typography.body-medium.line-height;
+    letter-spacing: design-system.typography.body-medium.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+export component BodySmall inherits Text {
+    font-size: design-system.typography.body-small.font-size;
+    font-weight: design-system.typography.body-small.font-weight;
+    line-height: design-system.typography.body-small.line-height;
+    letter-spacing: design-system.typography.body-small.letter-spacing;
+    color: material-palette.text.on-surface;
+}
+
+// ===== COMPONENTES DE TEXTO COM VARIAÇÕES DE COR =====
+
+// Texto sobre superfícies coloridas
+export component TextOnPrimary inherits Text {
+    color: material-palette.text.on-primary;
+}
+
+export component TextOnSecondary inherits Text {
+    color: material-palette.text.on-secondary;
+}
+
+export component TextOnTertiary inherits Text {
+    color: material-palette.text.on-tertiary;
+}
+
+export component TextOnError inherits Text {
+    color: material-palette.text.on-error;
+}
+
+export component TextOnSurface inherits Text {
+    color: material-palette.text.on-surface;
+}
+
+export component TextOnSurfaceVariant inherits Text {
+    color: material-palette.text.on-surface-variant;
+}
+
+// Texto sobre containers
+export component TextOnPrimaryContainer inherits Text {
+    color: material-palette.text.on-primary-container;
+}
+
+export component TextOnSecondaryContainer inherits Text {
+    color: material-palette.text.on-secondary-container;
+}
+
+export component TextOnTertiaryContainer inherits Text {
+    color: material-palette.text.on-tertiary-container;
+}
+
+export component TextOnErrorContainer inherits Text {
+    color: material-palette.text.on-error-container;
+}
+
+export component TextOnSurfaceContainer inherits Text {
+    color: material-palette.text.on-surface-container;
+}
+
+// ===== COMPONENTES DE TEXTO COM ESTADOS =====
+
+// Texto com estados de interação
+export component InteractiveText inherits Text {
+    color: material-palette.text.on-surface;
+    
+    // Estados de hover
+    property hover-color: brush = material-palette.primary.primary-40;
+    property is-hovered: bool = false;
+    
+    // Estados de foco
+    property focus-color: brush = material-palette.primary.primary-40;
+    property is-focused: bool = false;
+    
+    // Estados de pressão
+    property pressed-color: brush = material-palette.primary.primary-30;
+    property is-pressed: bool = false;
+    
+    // Estados de desabilitado
+    property disabled-color: brush = material-palette.text.on-surface;
+    property is-disabled: bool = false;
+    
+    // Aplicar cor baseada no estado
+    color: {
+        if (self.is-disabled) {
+            self.disabled-color
+        } else if (self.is-pressed) {
+            self.pressed-color
+        } else if (self.is-focused) {
+            self.focus-color
+        } else if (self.is-hovered) {
+            self.hover-color
+        } else {
+            material-palette.text.on-surface
+        }
+    }
+}
+
+// ===== COMPONENTES DE TEXTO ESPECIALIZADOS =====
+
+// Texto de link
+export component LinkText inherits InteractiveText {
+    color: material-palette.primary.primary-40;
+    text-decoration: underline;
+    
+    // Cores específicas para links
+    hover-color: material-palette.primary.primary-30;
+    focus-color: material-palette.primary.primary-50;
+    pressed-color: material-palette.primary.primary-20;
+    disabled-color: material-palette.text.on-surface;
+}
+
+// Texto de erro
+export component ErrorText inherits Text {
+    color: material-palette.error.error-40;
+    font-size: design-system.typography.body-small.font-size;
+    font-weight: design-system.typography.body-small.font-weight;
+}
+
+// Texto de sucesso
+export component SuccessText inherits Text {
+    color: material-palette.feedback.success;
+    font-size: design-system.typography.body-small.font-size;
+    font-weight: design-system.typography.body-small.font-weight;
+}
+
+// Texto de aviso
+export component WarningText inherits Text {
+    color: material-palette.feedback.warning;
+    font-size: design-system.typography.body-small.font-size;
+    font-weight: design-system.typography.body-small.font-weight;
+}
+
+// Texto de informação
+export component InfoText inherits Text {
+    color: material-palette.feedback.info;
+    font-size: design-system.typography.body-small.font-size;
+    font-weight: design-system.typography.body-small.font-weight;
+}
+
+// Texto de placeholder
+export component PlaceholderText inherits Text {
+    color: material-palette.text.on-surface-variant;
+    font-size: design-system.typography.body-medium.font-size;
+    font-weight: design-system.typography.body-medium.font-weight;
+    opacity: 0.6;
+}
+
+// Texto de caption
+export component CaptionText inherits Text {
+    color: material-palette.text.on-surface-variant;
+    font-size: design-system.typography.label-small.font-size;
+    font-weight: design-system.typography.label-small.font-weight;
+    line-height: design-system.typography.label-small.line-height;
+    letter-spacing: design-system.typography.label-small.letter-spacing;
+}
+
+// ===== COMPONENTES DE TEXTO COM ALINHAMENTO =====
+
+// Texto centralizado
+export component CenteredText inherits Text {
+    horizontal-alignment: TextHorizontalAlignment.Center;
+}
+
+// Texto alinhado à direita
+export component RightAlignedText inherits Text {
+    horizontal-alignment: TextHorizontalAlignment.Right;
+}
+
+// Texto justificado
+export component JustifiedText inherits Text {
+    horizontal-alignment: TextHorizontalAlignment.Justify;
+}
+
+// ===== COMPONENTES DE TEXTO COM TRUNCAMENTO =====
+
+// Texto com ellipsis
+export component TruncatedText inherits Text {
+    overflow: TextOverflow.Ellipsis;
+    single-line: true;
+}
+
+// Texto com quebra de linha
+export component WrappedText inherits Text {
+    overflow: TextOverflow.Wrap;
+    single-line: false;
+}
+
+// ===== COMPONENTES DE TEXTO COM PESOS ESPECÍFICOS =====
+
+// Texto leve
+export component LightText inherits Text {
+    font-weight: design-system.typography.font-weight-light;
+}
+
+// Texto regular
+export component RegularText inherits Text {
+    font-weight: design-system.typography.font-weight-regular;
+}
+
+// Texto médio
+export component MediumText inherits Text {
+    font-weight: design-system.typography.font-weight-medium;
+}
+
+// Texto semi-bold
+export component SemiBoldText inherits Text {
+    font-weight: design-system.typography.font-weight-semibold;
+}
+
+// Texto bold
+export component BoldText inherits Text {
+    font-weight: design-system.typography.font-weight-bold;
+}
+
+// ===== COMPONENTES DE TEXTO COM TAMANHOS ESPECÍFICOS =====
+
+// Texto extra pequeno
+export component ExtraSmallText inherits Text {
+    font-size: design-system.typography.font-size-xs;
+}
+
+// Texto pequeno
+export component SmallText inherits Text {
+    font-size: design-system.typography.font-size-sm;
+}
+
+// Texto médio
+export component MediumSizeText inherits Text {
+    font-size: design-system.typography.font-size-md;
+}
+
+// Texto grande
+export component LargeText inherits Text {
+    font-size: design-system.typography.font-size-lg;
+}
+
+// Texto extra grande
+export component ExtraLargeText inherits Text {
+    font-size: design-system.typography.font-size-xl;
+}
+
+// ===== COMPONENTES DE TEXTO COMPOSTOS =====
+
+// Título de página
+export component PageTitle inherits HeadlineLarge {
+    margin-bottom: design-system.spacing.md;
+    color: material-palette.text.on-surface;
+}
+
+// Subtítulo de seção
+export component SectionTitle inherits TitleLarge {
+    margin-bottom: design-system.spacing.sm;
+    color: material-palette.text.on-surface;
+}
+
+// Texto de descrição
+export component DescriptionText inherits BodyMedium {
+    color: material-palette.text.on-surface-variant;
+    line-height: design-system.typography.line-height-relaxed;
+}
+
+// Texto de card
+export component CardTitle inherits TitleMedium {
+    color: material-palette.text.on-surface;
+    margin-bottom: design-system.spacing.xs;
+}
+
+export component CardSubtitle inherits BodyMedium {
+    color: material-palette.text.on-surface-variant;
+    margin-bottom: design-system.spacing.sm;
+}
+
+export component CardBody inherits BodySmall {
+    color: material-palette.text.on-surface;
+    line-height: design-system.typography.line-height-relaxed;
+}
+
+// Texto de botão
+export component ButtonText inherits LabelLarge {
+    color: material-palette.text.on-primary;
+    text-align: center;
+}
+
+// Texto de input
+export component InputText inherits BodyLarge {
+    color: material-palette.text.on-surface;
+}
+
+// Texto de label
+export component InputLabel inherits LabelMedium {
+    color: material-palette.text.on-surface-variant;
+    margin-bottom: design-system.spacing.xs;
+}
+
+// Texto de ajuda
+export component HelpText inherits BodySmall {
+    color: material-palette.text.on-surface-variant;
+    margin-top: design-system.spacing.xs;
+}
+
+// ===== COMPONENTES DE TEXTO PARA FINANÇAS =====
+
+// Texto de valor monetário
+export component CurrencyText inherits TitleLarge {
+    color: material-palette.text.on-surface;
+    font-weight: design-system.typography.font-weight-medium;
+}
+
+// Texto de valor positivo
+export component PositiveValue inherits CurrencyText {
+    color: material-palette.feedback.success;
+}
+
+// Texto de valor negativo
+export component NegativeValue inherits CurrencyText {
+    color: material-palette.error.error-40;
+}
+
+// Texto de saldo
+export component BalanceText inherits DisplaySmall {
+    color: material-palette.text.on-surface;
+    font-weight: design-system.typography.font-weight-medium;
+}
+
+// Texto de categoria
+export component CategoryText inherits LabelMedium {
+    color: material-palette.text.on-surface-variant;
+    text-transform: uppercase;
+    letter-spacing: design-system.typography.letter-spacing-wide;
+}
+
+// Texto de data
+export component DateText inherits BodySmall {
+    color: material-palette.text.on-surface-variant;
+}
+
+// Texto de status
+export component StatusText inherits LabelSmall {
+    color: material-palette.text.on-surface-variant;
+    text-transform: uppercase;
+    letter-spacing: design-system.typography.letter-spacing-wide;
+}

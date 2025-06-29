@@ -1,11 +1,6 @@
-export component MainWindow inherits Window {
-    width: 400px;
-    height: 300px;
-    title: "Personal Financial";
+import { SplashWindow } from "./windows/splash.slint";
+import { AuthWindow } from "./windows/auth.slint";
+import { FirstAccessWindow } from "./windows/first_access.slint";
+import { DashboardWindow } from "./windows/dashboard.slint";
 
-    Text {
-        text: "Olá, Rust + Slint!";
-        horizontal-alignment: center;
-        vertical-alignment: center;
-    }
-}
+export { SplashWindow, AuthWindow, FirstAccessWindow, DashboardWindow }
