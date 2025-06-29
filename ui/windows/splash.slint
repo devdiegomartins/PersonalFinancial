@@ -1,1 +1,163 @@
-export component SplashWindow inherits Window {}
+// Splash Window - Tela de carregamento inicial
+// Responsável por exibir barra de título, tamanho e decoração própria
+
+import { app-controller, get-current-palette } from "../main.slint";
+import { design-system } from "../styles/common.slint";
+import { 
+    DisplayLarge, 
+    BodyMedium, 
+    CenteredText 
+} from "../shared/components/typography.slint";
+import { ColCentered } from "../shared/components/col.slint";
+
+export component SplashWindow inherits Window {
+    // Propriedades da janela
+    width: app-controller.app-config.window-width;
+    height: app-controller.app-config.window-height;
+    minimum-width: app-controller.app-config.window-min-width;
+    minimum-height: app-controller.app-config.window-min-height;
+    resizable: app-controller.app-config.window-resizable;
+    decorated: app-controller.app-config.window-decorated;
+    
+    // Propriedades de estado
+    property is-loading: bool = true;
+    property loading-progress: float = 0.0;
+    property loading-text: string = "Carregando...";
+    
+    // Timer para simular carregamento
+    property loading-timer: timer = Timer {
+        interval: 50;
+        repeat: true;
+        triggered => {
+            if (self.loading-progress < 1.0) {
+                self.loading-progress += 0.02;
+                self.update-loading-text();
+            } else {
+                self.finish-loading();
+            }
+        }
+    };
+    
+    // Função para atualizar texto de carregamento
+    function update-loading-text() {
+        if (self.loading-progress < 0.3) {
+            self.loading-text = "Inicializando...";
+        } else if (self.loading-progress < 0.6) {
+            self.loading-text = "Carregando configurações...";
+        } else if (self.loading-progress < 0.9) {
+            self.loading-text = "Preparando interface...";
+        } else {
+            self.loading-text = "Finalizando...";
+        }
+    }
+    
+    // Função para finalizar carregamento
+    function finish-loading() {
+        self.is-loading = false;
+        loading-timer.stop();
+        
+        // Aguardar um pouco antes de navegar
+        Timer {
+            interval: 500;
+            repeat: false;
+            triggered => {
+                app-controller.load-config-from-backend();
+            }
+        }.start();
+    }
+    
+    // Iniciar carregamento quando a janela for criada
+    Window.about-to-show => {
+        loading-timer.start();
+    };
+    
+    // Background da janela
+    background: get-current-palette().surface.surface;
+    
+    // Layout principal
+    ColCentered {
+        width: 100%;
+        height: 100%;
+        gap: design-system.spacing.xl;
+        
+        // Logo ou ícone da aplicação
+        Rectangle {
+            width: 120px;
+            height: 120px;
+            border-radius: design-system.borders.radius-lg;
+            background: get-current-palette().primary.primary-40;
+            
+            // Ícone temporário (será substituído por um ícone real)
+            Text {
+                text: "💰";
+                font-size: 48px;
+                horizontal-alignment: TextHorizontalAlignment.Center;
+                vertical-alignment: TextVerticalAlignment.Center;
+            }
+        }
+        
+        // Título da aplicação
+        DisplayLarge {
+            text: app-controller.app-config.app-name;
+            color: get-current-palette().text.on-surface;
+            horizontal-alignment: TextHorizontalAlignment.Center;
+        }
+        
+        // Versão da aplicação
+        BodyMedium {
+            text: "Versão " + app-controller.app-config.app-version;
+            color: get-current-palette().text.on-surface-variant;
+            horizontal-alignment: TextHorizontalAlignment.Center;
+        }
+        
+        // Barra de progresso
+        Rectangle {
+            width: 300px;
+            height: 4px;
+            border-radius: design-system.borders.radius-full;
+            background: get-current-palette().surface.surface-variant;
+            
+            // Progresso
+            Rectangle {
+                width: parent.width * self.loading-progress;
+                height: 100%;
+                border-radius: design-system.borders.radius-full;
+                background: get-current-palette().primary.primary-40;
+            }
+        }
+        
+        // Texto de carregamento
+        BodyMedium {
+            text: self.loading-text;
+            color: get-current-palette().text.on-surface-variant;
+            horizontal-alignment: TextHorizontalAlignment.Center;
+        }
+        
+        // Indicador de carregamento animado
+        Rectangle {
+            width: 20px;
+            height: 20px;
+            border-radius: design-system.borders.radius-full;
+            background: get-current-palette().primary.primary-40;
+            opacity: self.is-loading ? 1 : 0;
+            
+            // Animação de rotação
+            property rotation: angle = 0deg;
+            
+            Timer {
+                interval: 100;
+                repeat: true;
+                triggered => {
+                    if (self.is-loading) {
+                        self.rotation += 36deg;
+                    }
+                }
+            }.start();
+        }
+    }
+    
+    // Observar mudanças de tema
+    app-controller.on-theme-changed => {
+        self.background = get-current-palette().surface.surface;
+    }
+}

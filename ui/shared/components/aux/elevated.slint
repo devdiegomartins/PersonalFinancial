@@ -1,0 +1,489 @@
+// Componente Elevated - Controlador de elementos posicionados
+// Baseado no design system e Material Design 3
+
+import { design-system } from "../../../styles/common.slint";
+
+// Enum para tipos de eventos de abertura
+export enum ElevatedTrigger {
+    Click,
+    Hover,
+    Focus,
+    Manual
+}
+
+// Enum para posições de exibição
+export enum ElevatedPosition {
+    Top,
+    Bottom,
+    Left,
+    Right,
+    TopLeft,
+    TopRight,
+    BottomLeft,
+    BottomRight,
+    Auto
+}
+
+// Enum para alinhamentos
+export enum ElevatedAlignment {
+    Start,
+    Center,
+    End
+}
+
+// Componente base Elevated
+export component Elevated inherits TouchArea {
+    // Propriedades de trigger
+    property trigger: ElevatedTrigger = ElevatedTrigger.Click;
+    property is-open: bool = false;
+    
+    // Propriedades de posicionamento
+    property position: ElevatedPosition = ElevatedPosition.Auto;
+    property horizontal-alignment: ElevatedAlignment = ElevatedAlignment.Start;
+    property vertical-alignment: ElevatedAlignment = ElevatedAlignment.Start;
+    
+    // Propriedades de offset
+    property offset-x: length = 0px;
+    property offset-y: length = 8px;
+    
+    // Propriedades de fechamento
+    property close-on-click-outside: bool = true;
+    property close-on-hover-outside: bool = true;
+    property close-on-focus-outside: bool = true;
+    
+    // Propriedades de delay
+    property open-delay: int = 0;
+    property close-delay: int = 0;
+    
+    // Propriedades de z-index
+    property z-index: int = design-system.z-index.z-dropdown;
+    
+    // Propriedades de tamanho máximo
+    property max-width: length = 300px;
+    property max-height: length = 400px;
+    
+    // Propriedades de overflow
+    property overflow-x: Overflow = Overflow.Visible;
+    property overflow-y: Overflow = Overflow.Visible;
+    
+    // Propriedades de animação
+    property animation-duration: int = 200;
+    property animation-easing: string = "ease-out";
+    
+    // Propriedades de backdrop
+    property show-backdrop: bool = false;
+    property backdrop-color: brush = rgba(0, 0, 0, 0.5);
+    
+    // Propriedades de callback
+    property on-open: callback = ();
+    property on-close: callback = ();
+    property on-position-change: callback = ();
+    
+    // Estados internos
+    property is-hovered: bool = false;
+    property is-focused: bool = false;
+    property is-pressed: bool = false;
+    property is-positioned: bool = false;
+    
+    // Timers para delays
+    property open-timer: timer = Timer {
+        interval: 0;
+        repeat: false;
+        triggered => {
+            self.open-elevated();
+        }
+    };
+    
+    property close-timer: timer = Timer {
+        interval: 0;
+        repeat: false;
+        triggered => {
+            self.close-elevated();
+        }
+    };
+    
+    // Componente filho (trigger)
+    property trigger-child: component = TouchArea {
+        width: 100%;
+        height: 100%;
+    };
+    
+    // Componente elevado (conteúdo)
+    property elevated-child: component = Rectangle {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+    };
+    
+    // Container do trigger
+    Rectangle {
+        id: trigger-container;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        
+        // Eventos do trigger
+        TouchArea {
+            id: trigger-area;
+            width: 100%;
+            height: 100%;
+            
+            clicked => {
+                if (self.trigger == ElevatedTrigger.Click) {
+                    self.handle-trigger();
+                }
+            }
+            
+            mouse-entered => {
+                if (self.trigger == ElevatedTrigger.Hover) {
+                    self.handle-trigger();
+                }
+                self.is-hovered = true;
+            }
+            
+            mouse-exited => {
+                if (self.trigger == ElevatedTrigger.Hover) {
+                    self.handle-trigger-exit();
+                }
+                self.is-hovered = false;
+            }
+            
+            focus-changed => {
+                if (self.trigger == ElevatedTrigger.Focus) {
+                    if (self.is-focused) {
+                        self.handle-trigger();
+                    } else {
+                        self.handle-trigger-exit();
+                    }
+                }
+            }
+        }
+        
+        // Renderizar o trigger child
+        trigger-child {
+            parent: trigger-container;
+        }
+    }
+    
+    // Container do elemento elevado
+    Rectangle {
+        id: elevated-container;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        visible: self.is-open;
+        z: self.z-index;
+        
+        // Backdrop
+        TouchArea {
+            id: backdrop;
+            width: 100%;
+            height: 100%;
+            background: self.show-backdrop ? self.backdrop-color : transparent;
+            visible: self.show-backdrop && self.is-open;
+            
+            clicked => {
+                if (self.close-on-click-outside) {
+                    self.close-elevated();
+                }
+            }
+            
+            mouse-entered => {
+                if (self.close-on-hover-outside) {
+                    self.close-elevated();
+                }
+            }
+        }
+        
+        // Elemento elevado
+        Rectangle {
+            id: elevated-element;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            
+            // Renderizar o elevated child
+            elevated-child {
+                parent: elevated-element;
+            }
+        }
+    }
+    
+    // Função para calcular posição automática
+    function calculate-auto-position(): ElevatedPosition {
+        // Obter posição do trigger no viewport
+        let trigger-bounds = trigger-container.get-screen-bounds();
+        let viewport-width = root.width;
+        let viewport-height = root.height;
+        
+        // Calcular espaço disponível em cada direção
+        let space-top = trigger-bounds.y;
+        let space-bottom = viewport-height - (trigger-bounds.y + trigger-bounds.height);
+        let space-left = trigger-bounds.x;
+        let space-right = viewport-width - (trigger-bounds.x + trigger-bounds.width);
+        
+        // Determinar melhor posição baseada no espaço disponível
+        if (space-bottom >= space-top) {
+            return ElevatedPosition.Bottom;
+        } else {
+            return ElevatedPosition.Top;
+        }
+    }
+    
+    // Função para aplicar posicionamento
+    function apply-positioning() {
+        let final-position = self.position == ElevatedPosition.Auto ? 
+            self.calculate-auto-position() : self.position;
+        
+        let trigger-bounds = trigger-container.get-screen-bounds();
+        let elevated-bounds = elevated-element.get-screen-bounds();
+        
+        // Calcular posição baseada na direção
+        switch (final-position) {
+            case ElevatedPosition.Top:
+                elevated-element.x = trigger-bounds.x + self.offset-x;
+                elevated-element.y = trigger-bounds.y - elevated-bounds.height - self.offset-y;
+                break;
+            case ElevatedPosition.Bottom:
+                elevated-element.x = trigger-bounds.x + self.offset-x;
+                elevated-element.y = trigger-bounds.y + trigger-bounds.height + self.offset-y;
+                break;
+            case ElevatedPosition.Left:
+                elevated-element.x = trigger-bounds.x - elevated-bounds.width - self.offset-x;
+                elevated-element.y = trigger-bounds.y + self.offset-y;
+                break;
+            case ElevatedPosition.Right:
+                elevated-element.x = trigger-bounds.x + trigger-bounds.width + self.offset-x;
+                elevated-element.y = trigger-bounds.y + self.offset-y;
+                break;
+            case ElevatedPosition.TopLeft:
+                elevated-element.x = trigger-bounds.x - elevated-bounds.width + self.offset-x;
+                elevated-element.y = trigger-bounds.y - elevated-bounds.height - self.offset-y;
+                break;
+            case ElevatedPosition.TopRight:
+                elevated-element.x = trigger-bounds.x + self.offset-x;
+                elevated-element.y = trigger-bounds.y - elevated-bounds.height - self.offset-y;
+                break;
+            case ElevatedPosition.BottomLeft:
+                elevated-element.x = trigger-bounds.x - elevated-bounds.width + self.offset-x;
+                elevated-element.y = trigger-bounds.y + trigger-bounds.height + self.offset-y;
+                break;
+            case ElevatedPosition.BottomRight:
+                elevated-element.x = trigger-bounds.x + self.offset-x;
+                elevated-element.y = trigger-bounds.y + trigger-bounds.height + self.offset-y;
+                break;
+        }
+        
+        // Aplicar alinhamento horizontal
+        switch (self.horizontal-alignment) {
+            case ElevatedAlignment.Center:
+                elevated-element.x += (trigger-bounds.width - elevated-bounds.width) / 2;
+                break;
+            case ElevatedAlignment.End:
+                elevated-element.x += trigger-bounds.width - elevated-bounds.width;
+                break;
+        }
+        
+        // Aplicar alinhamento vertical
+        switch (self.vertical-alignment) {
+            case ElevatedAlignment.Center:
+                elevated-element.y += (trigger-bounds.height - elevated-bounds.height) / 2;
+                break;
+            case ElevatedAlignment.End:
+                elevated-element.y += trigger-bounds.height - elevated-bounds.height;
+                break;
+        }
+        
+        // Verificar se está dentro dos limites da viewport
+        self.adjust-to-viewport();
+        
+        self.is-positioned = true;
+        self.on-position-change();
+    }
+    
+    // Função para ajustar posição dentro da viewport
+    function adjust-to-viewport() {
+        let elevated-bounds = elevated-element.get-screen-bounds();
+        let viewport-width = root.width;
+        let viewport-height = root.height;
+        
+        // Ajustar horizontalmente
+        if (elevated-bounds.x < 0) {
+            elevated-element.x = 0;
+        } else if (elevated-bounds.x + elevated-bounds.width > viewport-width) {
+            elevated-element.x = viewport-width - elevated-bounds.width;
+        }
+        
+        // Ajustar verticalmente
+        if (elevated-bounds.y < 0) {
+            elevated-element.y = 0;
+        } else if (elevated-bounds.y + elevated-bounds.height > viewport-height) {
+            elevated-element.y = viewport-height - elevated-bounds.height;
+        }
+    }
+    
+    // Função para lidar com trigger
+    function handle-trigger() {
+        if (self.open-delay > 0) {
+            open-timer.interval = self.open-delay;
+            open-timer.restart();
+        } else {
+            self.open-elevated();
+        }
+    }
+    
+    // Função para lidar com saída do trigger
+    function handle-trigger-exit() {
+        if (self.close-delay > 0) {
+            close-timer.interval = self.close-delay;
+            close-timer.restart();
+        } else {
+            self.close-elevated();
+        }
+    }
+    
+    // Função para abrir elemento elevado
+    function open-elevated() {
+        if (!self.is-open) {
+            self.is-open = true;
+            self.apply-positioning();
+            self.on-open();
+        }
+    }
+    
+    // Função para fechar elemento elevado
+    function close-elevated() {
+        if (self.is-open) {
+            self.is-open = false;
+            self.is-positioned = false;
+            self.on-close();
+        }
+    }
+    
+    // Função para alternar estado
+    function toggle-elevated() {
+        if (self.is-open) {
+            self.close-elevated();
+        } else {
+            self.open-elevated();
+        }
+    }
+    
+    // Função para abrir manualmente
+    function open-manual() {
+        self.trigger = ElevatedTrigger.Manual;
+        self.open-elevated();
+    }
+    
+    // Função para fechar manualmente
+    function close-manual() {
+        self.trigger = ElevatedTrigger.Manual;
+        self.close-elevated();
+    }
+    
+    // Observar mudanças de tamanho da viewport
+    root.width-changed => {
+        if (self.is-open && self.is-positioned) {
+            self.apply-positioning();
+        }
+    }
+    
+    root.height-changed => {
+        if (self.is-open && self.is-positioned) {
+            self.apply-positioning();
+        }
+    }
+}
+
+// ===== COMPONENTES ESPECIALIZADOS =====
+
+// Elevated para tooltip
+export component ElevatedTooltip inherits Elevated {
+    trigger: ElevatedTrigger.Hover;
+    position: ElevatedPosition.Top;
+    horizontal-alignment: ElevatedAlignment.Center;
+    offset-y: 8px;
+    open-delay: 500;
+    close-delay: 100;
+    close-on-hover-outside: true;
+    close-on-click-outside: false;
+    z-index: design-system.z-index.z-tooltip;
+}
+
+// Elevated para dropdown
+export component ElevatedDropdown inherits Elevated {
+    trigger: ElevatedTrigger.Click;
+    position: ElevatedPosition.Bottom;
+    horizontal-alignment: ElevatedAlignment.Start;
+    offset-y: 4px;
+    close-on-click-outside: true;
+    close-on-hover-outside: false;
+    z-index: design-system.z-index.z-dropdown;
+}
+
+// Elevated para popover
+export component ElevatedPopover inherits Elevated {
+    trigger: ElevatedTrigger.Click;
+    position: ElevatedPosition.Bottom;
+    horizontal-alignment: ElevatedAlignment.Center;
+    offset-y: 8px;
+    close-on-click-outside: true;
+    close-on-hover-outside: false;
+    show-backdrop: true;
+    z-index: design-system.z-index.z-popover;
+}
+
+// Elevated para menu
+export component ElevatedMenu inherits Elevated {
+    trigger: ElevatedTrigger.Click;
+    position: ElevatedPosition.Bottom;
+    horizontal-alignment: ElevatedAlignment.Start;
+    offset-y: 4px;
+    close-on-click-outside: true;
+    close-on-hover-outside: false;
+    z-index: design-system.z-index.z-dropdown;
+}
+
+// Elevated para select
+export component ElevatedSelect inherits Elevated {
+    trigger: ElevatedTrigger.Click;
+    position: ElevatedPosition.Bottom;
+    horizontal-alignment: ElevatedAlignment.Start;
+    offset-y: 4px;
+    close-on-click-outside: true;
+    close-on-hover-outside: false;
+    z-index: design-system.z-index.z-dropdown;
+}
+
+// Elevated para autocomplete
+export component ElevatedAutocomplete inherits Elevated {
+    trigger: ElevatedTrigger.Focus;
+    position: ElevatedPosition.Bottom;
+    horizontal-alignment: ElevatedAlignment.Start;
+    offset-y: 4px;
+    close-on-click-outside: true;
+    close-on-focus-outside: true;
+    z-index: design-system.z-index.z-dropdown;
+}
+
+// Elevated para modal
+export component ElevatedModal inherits Elevated {
+    trigger: ElevatedTrigger.Manual;
+    position: ElevatedPosition.Auto;
+    horizontal-alignment: ElevatedAlignment.Center;
+    vertical-alignment: ElevatedAlignment.Center;
+    show-backdrop: true;
+    z-index: design-system.z-index.z-modal;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+// Elevated para toast
+export component ElevatedToast inherits Elevated {
+    trigger: ElevatedTrigger.Manual;
+    position: ElevatedPosition.Top;
+    horizontal-alignment: ElevatedAlignment.Center;
+    offset-y: 16px;
+    z-index: design-system.z-index.z-toast;
+    animation-duration: 300;
+}

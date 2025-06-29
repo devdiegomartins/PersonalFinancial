@@ -1,6 +1,296 @@
+// Main Controller - Gerenciador principal da aplicação
+// Controla temas, configurações e inicialização das janelas
+
 import { SplashWindow } from "./windows/splash.slint";
 import { AuthWindow } from "./windows/auth.slint";
 import { FirstAccessWindow } from "./windows/first_access.slint";
 import { DashboardWindow } from "./windows/dashboard.slint";
+import { theme-provider, ThemeType, ThemeConfig } from "./styles/theme.slint";
 
+// Estrutura de configuração da aplicação
+export struct AppConfig {
+    // Configurações de tema
+    theme: ThemeConfig;
+    
+    // Configurações de janela
+    window-width: length = 1200px;
+    window-height: length = 800px;
+    window-min-width: length = 800px;
+    window-min-height: length = 600px;
+    window-resizable: bool = true;
+    window-decorated: bool = true;
+    
+    // Configurações de aplicação
+    app-name: string = "Personal Financial";
+    app-version: string = "1.0.0";
+    app-language: string = "pt-BR";
+    
+    // Configurações de usuário
+    user-id: string = "";
+    user-name: string = "";
+    user-email: string = "";
+    user-avatar: string = "";
+    
+    // Configurações de persistência
+    auto-save: bool = true;
+    backup-enabled: bool = true;
+    sync-enabled: bool = false;
+}
+
+// Componente principal da aplicação
+export component AppController inherits TouchArea {
+    // Propriedades de configuração
+    property app-config: AppConfig = {
+        theme: {
+            theme-type: ThemeType.Light,
+            palette: theme-provider.get-palette(),
+            auto-switch: false,
+            high-contrast: false,
+            reduced-motion: false
+        },
+        window-width: 1200px,
+        window-height: 800px,
+        window-min-width: 800px,
+        window-min-height: 600px,
+        window-resizable: true,
+        window-decorated: true,
+        app-name: "Personal Financial",
+        app-version: "1.0.0",
+        app-language: "pt-BR",
+        user-id: "",
+        user-name: "",
+        user-email: "",
+        user-avatar: "",
+        auto-save: true,
+        backup-enabled: true,
+        sync-enabled: false
+    };
+    
+    // Propriedades de estado
+    property current-window: string = "splash";
+    property is-initialized: bool = false;
+    property is-authenticated: bool = false;
+    property is-first-access: bool = false;
+    
+    // Callbacks de eventos
+    property on-config-loaded: callback = ();
+    property on-window-changed: callback = ();
+    property on-theme-changed: callback = ();
+    property on-user-changed: callback = ();
+    
+    // Função para inicializar a aplicação
+    function initialize-app(config: AppConfig) {
+        self.app-config = config;
+        self.apply-config();
+        self.is-initialized = true;
+        self.on-config-loaded();
+    }
+    
+    // Função para aplicar configurações
+    function apply-config() {
+        // Aplicar configurações de tema
+        theme-provider.apply-config(self.app-config.theme);
+        
+        // Configurar callbacks do tema
+        theme-provider.on-theme-changed = {
+            self.on-theme-changed();
+        };
+        
+        theme-provider.on-config-changed = {
+            self.app-config.theme = theme-provider.get-config();
+        };
+    }
+    
+    // Função para carregar configurações do backend
+    function load-config-from-backend() {
+        // Esta função será chamada pelo backend Rust
+        // Por enquanto, usa configurações padrão
+        let default-config = {
+            theme: {
+                theme-type: ThemeType.Light,
+                palette: theme-provider.get-palette(),
+                auto-switch: false,
+                high-contrast: false,
+                reduced-motion: false
+            },
+            window-width: 1200px,
+            window-height: 800px,
+            window-min-width: 800px,
+            window-min-height: 600px,
+            window-resizable: true,
+            window-decorated: true,
+            app-name: "Personal Financial",
+            app-version: "1.0.0",
+            app-language: "pt-BR",
+            user-id: "",
+            user-name: "",
+            user-email: "",
+            user-avatar: "",
+            auto-save: true,
+            backup-enabled: true,
+            sync-enabled: false
+        };
+        
+        self.initialize-app(default-config);
+    }
+    
+    // Função para salvar configurações no backend
+    function save-config-to-backend() {
+        // Esta função será chamada para salvar no backend Rust
+        // Por enquanto, apenas dispara o callback
+        self.on-config-loaded();
+    }
+    
+    // Função para alternar tema
+    function toggle-theme() {
+        theme-provider.toggle-theme();
+    }
+    
+    // Função para definir tema
+    function set-theme(theme: ThemeType) {
+        theme-provider.set-theme(theme);
+    }
+    
+    // Função para navegar entre janelas
+    function navigate-to-window(window-name: string) {
+        if (self.current-window != window-name) {
+            self.current-window = window-name;
+            self.on-window-changed();
+        }
+    }
+    
+    // Função para definir usuário
+    function set-user(id: string, name: string, email: string, avatar: string) {
+        self.app-config.user-id = id;
+        self.app-config.user-name = name;
+        self.app-config.user-email = email;
+        self.app-config.user-avatar = avatar;
+        self.on-user-changed();
+    }
+    
+    // Função para obter configuração atual
+    function get-config(): AppConfig {
+        return self.app-config;
+    }
+    
+    // Função para obter tema atual
+    function get-current-theme(): ThemeType {
+        return theme-provider.current-theme;
+    }
+    
+    // Função para obter paleta atual
+    function get-current-palette() {
+        return theme-provider.get-palette();
+    }
+    
+    // Função para verificar se é primeira execução
+    function check-first-access() {
+        // Esta função será implementada com lógica do backend
+        self.is-first-access = self.app-config.user-id == "";
+    }
+    
+    // Função para verificar autenticação
+    function check-authentication() {
+        // Esta função será implementada com lógica do backend
+        self.is-authenticated = self.app-config.user-id != "";
+    }
+    
+    // Função para determinar janela inicial
+    function get-initial-window(): string {
+        if (!self.is-initialized) {
+            return "splash";
+        } else if (self.is-first-access) {
+            return "first_access";
+        } else if (!self.is-authenticated) {
+            return "auth";
+        } else {
+            return "dashboard";
+        }
+    }
+    
+    // Observar mudanças de estado
+    is-initialized-changed => {
+        if (self.is-initialized) {
+            self.check-first-access();
+            self.check-authentication();
+            self.current-window = self.get-initial-window();
+        }
+    }
+    
+    is-first-access-changed => {
+        if (self.is-initialized) {
+            self.current-window = self.get-initial-window();
+        }
+    }
+    
+    is-authenticated-changed => {
+        if (self.is-initialized) {
+            self.current-window = self.get-initial-window();
+        }
+    }
+}
+
+// Instância global do controlador da aplicação
+export global app-controller: AppController = AppController {
+    app-config: {
+        theme: {
+            theme-type: ThemeType.Light,
+            palette: theme-provider.get-palette(),
+            auto-switch: false,
+            high-contrast: false,
+            reduced-motion: false
+        },
+        window-width: 1200px,
+        window-height: 800px,
+        window-min-width: 800px,
+        window-min-height: 600px,
+        window-resizable: true,
+        window-decorated: true,
+        app-name: "Personal Financial",
+        app-version: "1.0.0",
+        app-language: "pt-BR",
+        user-id: "",
+        user-name: "",
+        user-email: "",
+        user-avatar: "",
+        auto-save: true,
+        backup-enabled: true,
+        sync-enabled: false
+    },
+    current-window: "splash",
+    is-initialized: false,
+    is-authenticated: false,
+    is-first-access: false
+};
+
+// Funções globais para acesso ao controlador
+export function get-app-controller(): AppController {
+    return app-controller;
+}
+
+export function get-current-config(): AppConfig {
+    return app-controller.get-config();
+}
+
+export function get-current-theme(): ThemeType {
+    return app-controller.get-current-theme();
+}
+
+export function get-current-palette() {
+    return app-controller.get-current-palette();
+}
+
+export function navigate-to-window(window-name: string) {
+    app-controller.navigate-to-window(window-name);
+}
+
+export function toggle-app-theme() {
+    app-controller.toggle-theme();
+}
+
+export function set-app-theme(theme: ThemeType) {
+    app-controller.set-theme(theme);
+}
+
+// Exportar janelas
 export { SplashWindow, AuthWindow, FirstAccessWindow, DashboardWindow }

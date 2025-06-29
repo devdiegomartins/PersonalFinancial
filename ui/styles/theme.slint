@@ -1,0 +1,159 @@
+// Sistema de Gerenciamento de Temas
+// Controla a seleção entre temas light e dark
+
+import { light-palette } from "./light/palette.slint";
+import { dark-palette } from "./dark/palette.slint";
+
+// Enum para tipos de tema
+export enum ThemeType {
+    Light,
+    Dark
+}
+
+// Estrutura de configuração do tema
+export struct ThemeConfig {
+    // Tipo do tema atual
+    theme-type: ThemeType;
+    
+    // Paleta de cores ativa
+    palette: struct {
+        primary: struct;
+        secondary: struct;
+        tertiary: struct;
+        error: struct;
+        neutral: struct;
+        surface: struct;
+        state: struct;
+        text: struct;
+        outline: struct;
+        shadow: struct;
+        elevation: struct;
+        feedback: struct;
+        accessibility: struct;
+    };
+    
+    // Propriedades de configuração
+    auto-switch: bool = false;
+    high-contrast: bool = false;
+    reduced-motion: bool = false;
+}
+
+// Componente de gerenciamento de tema
+export component ThemeProvider inherits TouchArea {
+    // Propriedades de configuração
+    property current-theme: ThemeType = ThemeType.Light;
+    property auto-switch: bool = false;
+    property high-contrast: bool = false;
+    property reduced-motion: bool = false;
+    
+    // Callbacks para mudanças de tema
+    property on-theme-changed: callback = ();
+    property on-config-changed: callback = ();
+    
+    // Configuração atual do tema
+    property theme-config: ThemeConfig = {
+        theme-type: self.current-theme,
+        palette: self.get-palette(),
+        auto-switch: self.auto-switch,
+        high-contrast: self.high-contrast,
+        reduced-motion: self.reduced-motion
+    };
+    
+    // Função para obter a paleta baseada no tema atual
+    function get-palette() {
+        if (self.current-theme == ThemeType.Dark) {
+            return dark-palette;
+        } else {
+            return light-palette;
+        }
+    }
+    
+    // Função para alternar tema
+    function toggle-theme() {
+        if (self.current-theme == ThemeType.Light) {
+            self.set-theme(ThemeType.Dark);
+        } else {
+            self.set-theme(ThemeType.Light);
+        }
+    }
+    
+    // Função para definir tema específico
+    function set-theme(theme: ThemeType) {
+        if (self.current-theme != theme) {
+            self.current-theme = theme;
+            self.update-theme-config();
+            self.on-theme-changed();
+        }
+    }
+    
+    // Função para atualizar configuração do tema
+    function update-theme-config() {
+        self.theme-config = {
+            theme-type: self.current-theme,
+            palette: self.get-palette(),
+            auto-switch: self.auto-switch,
+            high-contrast: self.high-contrast,
+            reduced-motion: self.reduced-motion
+        };
+    }
+    
+    // Função para aplicar configurações
+    function apply-config(config: ThemeConfig) {
+        self.current-theme = config.theme-type;
+        self.auto-switch = config.auto-switch;
+        self.high-contrast = config.high-contrast;
+        self.reduced-motion = config.reduced-motion;
+        self.update-theme-config();
+        self.on-config-changed();
+    }
+    
+    // Função para obter configuração atual
+    function get-config(): ThemeConfig {
+        return self.theme-config;
+    }
+    
+    // Observar mudanças nas propriedades
+    current-theme-changed => {
+        self.update-theme-config();
+    }
+    
+    auto-switch-changed => {
+        self.update-theme-config();
+    }
+    
+    high-contrast-changed => {
+        self.update-theme-config();
+    }
+    
+    reduced-motion-changed => {
+        self.update-theme-config();
+    }
+}
+
+// Instância global do provider de tema
+export global theme-provider: ThemeProvider = ThemeProvider {
+    current-theme: ThemeType.Light,
+    auto-switch: false,
+    high-contrast: false,
+    reduced-motion: false
+};
+
+// Função global para obter a paleta atual
+export function get-current-palette() {
+    return theme-provider.get-palette();
+}
+
+// Função global para obter o tema atual
+export function get-current-theme(): ThemeType {
+    return theme-provider.current-theme;
+}
+
+// Função global para alternar tema
+export function toggle-current-theme() {
+    theme-provider.toggle-theme();
+}
+
+// Função global para definir tema
+export function set-current-theme(theme: ThemeType) {
+    theme-provider.set-theme(theme);
+}

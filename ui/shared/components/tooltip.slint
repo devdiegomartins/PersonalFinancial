@@ -1,0 +1,355 @@
+// Componente Tooltip - Baseado no Elevated
+// Respeita o sistema de temas e posicionamento inteligente
+
+import { ElevatedTooltip, ElevatedPosition, ElevatedAlignment } from "./aux/elevated.slint";
+import { design-system } from "../../styles/common.slint";
+import { get-current-palette } from "../../styles/theme.slint";
+import { LabelMedium } from "./typography.slint";
+
+// Enum para tipos de tooltip
+export enum TooltipType {
+    Default,
+    Info,
+    Warning,
+    Error,
+    Success
+}
+
+// Enum para tamanhos de tooltip
+export enum TooltipSize {
+    Small,
+    Medium,
+    Large
+}
+
+// Componente base do tooltip
+export component Tooltip inherits ElevatedTooltip {
+    // Propriedades de conteúdo
+    property text: string = "";
+    property tooltip-type: TooltipType = TooltipType.Default;
+    property tooltip-size: TooltipSize = TooltipSize.Medium;
+    
+    // Propriedades de posicionamento
+    property preferred-position: ElevatedPosition = ElevatedPosition.Top;
+    property fallback-positions: array<ElevatedPosition> = [ElevatedPosition.Bottom, ElevatedPosition.Left, ElevatedPosition.Right];
+    
+    // Propriedades de estilo
+    property show-arrow: bool = true;
+    property max-width: length = design-system.components.tooltip-max-width;
+    property custom-background: brush = transparent;
+    property custom-text-color: brush = transparent;
+    
+    // Propriedades de animação
+    property animation-duration: int = 200;
+    property animation-easing: string = "ease-out";
+    
+    // Função para obter cor de fundo baseada no tipo
+    function get-background-color(): brush {
+        if (self.custom-background != transparent) {
+            return self.custom-background;
+        }
+        
+        switch (self.tooltip-type) {
+            case TooltipType.Info:
+                return get-current-palette().feedback.info;
+            case TooltipType.Warning:
+                return get-current-palette().feedback.warning;
+            case TooltipType.Error:
+                return get-current-palette().error.error-40;
+            case TooltipType.Success:
+                return get-current-palette().feedback.success;
+            default:
+                return get-current-palette().surface.surface-container-highest;
+        }
+    }
+    
+    // Função para obter cor do texto baseada no tipo
+    function get-text-color(): brush {
+        if (self.custom-text-color != transparent) {
+            return self.custom-text-color;
+        }
+        
+        switch (self.tooltip-type) {
+            case TooltipType.Info:
+            case TooltipType.Warning:
+            case TooltipType.Error:
+            case TooltipType.Success:
+                return get-current-palette().text.on-primary;
+            default:
+                return get-current-palette().text.on-surface;
+        }
+    }
+    
+    // Função para obter tamanho baseado no tipo
+    function get-tooltip-size(): length {
+        switch (self.tooltip-size) {
+            case TooltipSize.Small:
+                return 8px;
+            case TooltipSize.Large:
+                return 16px;
+            default:
+                return 12px;
+        }
+    }
+    
+    // Função para obter padding baseado no tamanho
+    function get-tooltip-padding(): length {
+        switch (self.tooltip-size) {
+            case TooltipSize.Small:
+                return design-system.spacing.xs;
+            case TooltipSize.Large:
+                return design-system.spacing.md;
+            default:
+                return design-system.spacing.sm;
+        }
+    }
+    
+    // Função para obter font-size baseado no tamanho
+    function get-tooltip-font-size(): length {
+        switch (self.tooltip-size) {
+            case TooltipSize.Small:
+                return design-system.typography.font-size-xs;
+            case TooltipSize.Large:
+                return design-system.typography.font-size-md;
+            default:
+                return design-system.typography.font-size-sm;
+        }
+    }
+    
+    // Configurar posicionamento inteligente
+    position: self.preferred-position;
+    
+    // Configurar trigger child (elemento que ativa o tooltip)
+    trigger-child: TouchArea {
+        width: 100%;
+        height: 100%;
+    }
+    
+    // Configurar elevated child (conteúdo do tooltip)
+    elevated-child: Rectangle {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        
+        // Container principal do tooltip
+        Rectangle {
+            id: tooltip-container;
+            width: 100%;
+            height: 100%;
+            background: self.get-background-color();
+            border-radius: design-system.borders.radius-sm;
+            box-shadow: design-system.shadows.tooltip-elevation;
+            padding: self.get-tooltip-padding();
+            
+            // Seta do tooltip (se habilitada)
+            Rectangle {
+                id: tooltip-arrow;
+                width: 8px;
+                height: 8px;
+                background: self.get-background-color();
+                visible: self.show-arrow;
+                
+                // Posicionar seta baseado na posição
+                x: {
+                    if (self.position == ElevatedPosition.Top || self.position == ElevatedPosition.Bottom) {
+                        (parent.width - self.width) / 2
+                    } else if (self.position == ElevatedPosition.Left) {
+                        parent.width - self.width / 2
+                    } else {
+                        -self.width / 2
+                    }
+                }
+                
+                y: {
+                    if (self.position == ElevatedPosition.Top) {
+                        parent.height - self.height / 2
+                    } else if (self.position == ElevatedPosition.Bottom) {
+                        -self.height / 2
+                    } else {
+                        (parent.height - self.height) / 2
+                    }
+                }
+                
+                // Rotacionar seta baseado na posição
+                rotation: {
+                    if (self.position == ElevatedPosition.Top) {
+                        45deg
+                    } else if (self.position == ElevatedPosition.Bottom) {
+                        225deg
+                    } else if (self.position == ElevatedPosition.Left) {
+                        135deg
+                    } else {
+                        315deg
+                    }
+                }
+            }
+            
+            // Texto do tooltip
+            LabelMedium {
+                id: tooltip-text;
+                text: self.text;
+                color: self.get-text-color();
+                font-size: self.get-tooltip-font-size();
+                horizontal-alignment: TextHorizontalAlignment.Center;
+                vertical-alignment: TextVerticalAlignment.Center;
+                width: 100%;
+                height: 100%;
+                overflow: TextOverflow.Wrap;
+                single-line: false;
+            }
+        }
+    }
+    
+    // Observar mudanças de tema
+    app-controller.on-theme-changed => {
+        tooltip-container.background = self.get-background-color();
+        tooltip-arrow.background = self.get-background-color();
+        tooltip-text.color = self.get-text-color();
+    }
+}
+
+// ===== COMPONENTES ESPECIALIZADOS =====
+
+// Tooltip padrão
+export component DefaultTooltip inherits Tooltip {
+    tooltip-type: TooltipType.Default;
+    tooltip-size: TooltipSize.Medium;
+}
+
+// Tooltip pequeno
+export component SmallTooltip inherits Tooltip {
+    tooltip-type: TooltipType.Default;
+    tooltip-size: TooltipSize.Small;
+    max-width: 150px;
+}
+
+// Tooltip grande
+export component LargeTooltip inherits Tooltip {
+    tooltip-type: TooltipType.Default;
+    tooltip-size: TooltipSize.Large;
+    max-width: 400px;
+}
+
+// Tooltip de informação
+export component InfoTooltip inherits Tooltip {
+    tooltip-type: TooltipType.Info;
+    tooltip-size: TooltipSize.Medium;
+}
+
+// Tooltip de aviso
+export component WarningTooltip inherits Tooltip {
+    tooltip-type: TooltipType.Warning;
+    tooltip-size: TooltipSize.Medium;
+}
+
+// Tooltip de erro
+export component ErrorTooltip inherits Tooltip {
+    tooltip-type: TooltipType.Error;
+    tooltip-size: TooltipSize.Medium;
+}
+
+// Tooltip de sucesso
+export component SuccessTooltip inherits Tooltip {
+    tooltip-type: TooltipType.Success;
+    tooltip-size: TooltipType.Medium;
+}
+
+// ===== COMPONENTES COM POSICIONAMENTO ESPECÍFICO =====
+
+// Tooltip que aparece no topo
+export component TopTooltip inherits Tooltip {
+    preferred-position: ElevatedPosition.Top;
+    fallback-positions: [ElevatedPosition.Bottom, ElevatedPosition.Left, ElevatedPosition.Right];
+}
+
+// Tooltip que aparece embaixo
+export component BottomTooltip inherits Tooltip {
+    preferred-position: ElevatedPosition.Bottom;
+    fallback-positions: [ElevatedPosition.Top, ElevatedPosition.Left, ElevatedPosition.Right];
+}
+
+// Tooltip que aparece à esquerda
+export component LeftTooltip inherits Tooltip {
+    preferred-position: ElevatedPosition.Left;
+    fallback-positions: [ElevatedPosition.Right, ElevatedPosition.Top, ElevatedPosition.Bottom];
+}
+
+// Tooltip que aparece à direita
+export component RightTooltip inherits Tooltip {
+    preferred-position: ElevatedPosition.Right;
+    fallback-positions: [ElevatedPosition.Left, ElevatedPosition.Top, ElevatedPosition.Bottom];
+}
+
+// ===== COMPONENTES COMPOSTOS =====
+
+// Tooltip para botões
+export component ButtonTooltip inherits DefaultTooltip {
+    preferred-position: ElevatedPosition.Top;
+    tooltip-size: TooltipSize.Small;
+    max-width: 200px;
+}
+
+// Tooltip para ícones
+export component IconTooltip inherits SmallTooltip {
+    preferred-position: ElevatedPosition.Top;
+    show-arrow: true;
+}
+
+// Tooltip para campos de formulário
+export component FormTooltip inherits InfoTooltip {
+    preferred-position: ElevatedPosition.Top;
+    tooltip-size: TooltipSize.Medium;
+    max-width: 300px;
+}
+
+// Tooltip para validação
+export component ValidationTooltip inherits ErrorTooltip {
+    preferred-position: ElevatedPosition.Bottom;
+    tooltip-size: TooltipSize.Medium;
+    max-width: 250px;
+}
+
+// Tooltip para ajuda
+export component HelpTooltip inherits InfoTooltip {
+    preferred-position: ElevatedPosition.Right;
+    tooltip-size: TooltipSize.Large;
+    max-width: 350px;
+}
+
+// Tooltip para status
+export component StatusTooltip inherits DefaultTooltip {
+    preferred-position: ElevatedPosition.Top;
+    tooltip-size: TooltipSize.Small;
+    max-width: 150px;
+}
+
+// ===== COMPONENTES PARA FINANÇAS =====
+
+// Tooltip para valores monetários
+export component CurrencyTooltip inherits DefaultTooltip {
+    preferred-position: ElevatedPosition.Top;
+    tooltip-size: TooltipSize.Small;
+    max-width: 200px;
+}
+
+// Tooltip para categorias
+export component CategoryTooltip inherits InfoTooltip {
+    preferred-position: ElevatedPosition.Top;
+    tooltip-size: TooltipSize.Medium;
+    max-width: 250px;
+}
+
+// Tooltip para transações
+export component TransactionTooltip inherits LargeTooltip {
+    preferred-position: ElevatedPosition.Bottom;
+    tooltip-size: TooltipSize.Large;
+    max-width: 400px;
+}
+
+// Tooltip para gráficos
+export component ChartTooltip inherits DefaultTooltip {
+    preferred-position: ElevatedPosition.Top;
+    tooltip-size: TooltipSize.Medium;
+    max-width: 300px;
+    show-arrow: false;
+}
