@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "personal_financial",
+  "productName": "Personal Financial",
   "version": "0.1.0",
   "identifier": "com.personalfinancial.app",
   "build": {
@@ -12,9 +12,51 @@
   "app": {
     "windows": [
       {
-        "title": "personal_financial",
+        "label": "splash",
+        "title": "Personal Financial - Splash",
+        "width": 400,
+        "height": 300,
+        "center": true,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true
+      },
+      {
+        "label": "auth",
+        "title": "Personal Financial - Autenticação",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "center": true,
+        "visible": false
+      },
+      {
+        "label": "first-access",
+        "title": "Personal Financial - Primeiro Acesso",
+        "width": 800,
+        "height": 600,
+        "center": true,
+        "visible": false
+      },
+      {
+        "label": "dashboard",
+        "title": "Personal Financial - Dashboard",
+        "width": 1200,
+        "height": 800,
+        "center": true,
+        "visible": false,
+        "minWidth": 800,
+        "minHeight": 600
+      },
+      {
+        "label": "error",
+        "title": "Personal Financial - Erro",
+        "width": 600,
+        "height": 400,
+        "center": true,
+        "visible": false,
+        "alwaysOnTop": true,
+        "resizable": false
       }
     ],
     "security": {

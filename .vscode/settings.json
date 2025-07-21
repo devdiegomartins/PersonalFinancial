@@ -1,0 +1,5 @@
+{
+    "rust-analyzer.cargo.workspaceRoot": "./src-tauri",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+}
