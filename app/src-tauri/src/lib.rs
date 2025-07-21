@@ -1,5 +1,6 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 use api_personal_financial::{self, finance::Transaction};
+use tauri::Manager;
 
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -38,6 +39,11 @@ fn calculate_monthly_income(transactions_json: String, month: String) -> Result<
     Ok(api_personal_financial::calculate_monthly_income(&transactions, &month))
 }
 
+#[tauri::command]
+fn get_current_window_label(window: tauri::Window) -> String {
+    window.label().to_string()
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -47,7 +53,8 @@ pub fn run() {
             calculate_sum, 
             calculate_balance, 
             calculate_monthly_expenses, 
-            calculate_monthly_income
+            calculate_monthly_income,
+            get_current_window_label
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
