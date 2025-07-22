@@ -1,5 +1,5 @@
 #!/bin/sh
 
 echo "[Commitlint] Running"
-npx --no-install commitlint --edit "$1"
+bunx commitlint --edit $1
 echo "[Commitlint] Completed\n"

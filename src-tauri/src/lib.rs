@@ -4,6 +4,7 @@ mod controller;
 mod model;
 mod repository;
 mod service;
+mod sign;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {

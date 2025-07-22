@@ -481,8 +481,10 @@ checksum = "c469d952047f47f91b68d1cba3f10d63c11d73e4636f24f08daf0278abf01c4d"
 dependencies = [
  "android-tzdata",
  "iana-time-zone",
+ "js-sys",
  "num-traits",
  "serde",
+ "wasm-bindgen",
  "windows-link",
 ]
 
@@ -783,6 +785,12 @@ dependencies = [
  "quote",
  "syn 2.0.104",
 ]
+
+[[package]]
+name = "dotenvy"
+version = "0.15.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1aaf95b3e5c8f23aa320147307562d361db0ae0d51242340f558153b4eb2439b"
 
 [[package]]
 name = "dpi"
@@ -2460,11 +2468,13 @@ checksum = "e3148f5046208a5d56bcfc03053e3ca6334e51da8dfb19b6cdc8b306fae3283e"
 name = "personal_financial"
 version = "0.1.0"
 dependencies = [
+ "chrono",
+ "dotenvy",
  "serde",
- "serde_json",
  "tauri",
  "tauri-build",
  "tauri-plugin-opener",
+ "uuid",
 ]
 
 [[package]]
