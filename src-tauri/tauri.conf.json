@@ -14,11 +14,11 @@
       {
         "label": "splash",
         "title": "Personal Financial - Splash",
-        "width": 400,
-        "height": 300,
+        "width": 800,
+        "height": 800,
         "center": true,
-        "decorations": false,
-        "transparent": true,
+        "decorations": true,
+        "transparent": false,
         "alwaysOnTop": true,
         "skipTaskbar": true
       },

@@ -1,4 +1,4 @@
-use crate::controller::controller;
+use crate::{controller::controller, service::state_management::state_management};
 
 mod controller;
 mod model;
@@ -12,6 +12,9 @@ pub fn run() {
 
     // Settings tauri plugins
     let builder = builder.plugin(tauri_plugin_opener::init());
+
+    // Construct State Management of application
+    let builder = state_management(builder);
 
     // Define commands
     let builder = controller(builder);
