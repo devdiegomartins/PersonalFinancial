@@ -1,6 +1,9 @@
 [package]
 name = "crypt_service"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
 
 [dependencies]
+serde = { version = "1", features = ["derive"] }
+aes-gcm = "0.10.3"
+argon2 = "0.5.3"
