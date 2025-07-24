@@ -1,8 +1,10 @@
-import { useTranslation } from "react-i18next";
 import { LanguageProvider } from "./Language/LanguageProvider";
+import { RouterProvider } from "./RouterProvider";
 
 export const AppProvider = () => {
-	const { t } = useTranslation();
-
-	return <LanguageProvider>{t("common:test")}</LanguageProvider>;
+	return (
+		<LanguageProvider>
+			<RouterProvider />
+		</LanguageProvider>
+	);
 };
