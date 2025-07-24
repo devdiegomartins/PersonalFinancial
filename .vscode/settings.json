@@ -1,5 +1,11 @@
 {
-    "rust-analyzer.cargo.workspaceRoot": "./src-tauri",
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true
+	"rust-analyzer.cargo.workspaceRoot": "./src-tauri",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
 }

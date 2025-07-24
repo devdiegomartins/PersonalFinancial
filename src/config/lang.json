@@ -1,0 +1,10 @@
+{
+	"fallbackLanguage": {
+		"pt-BR": ["en"],
+		"en": ["pt-BR"],
+		"default": ["en", "pt-BR"]
+	},
+	"supportLanguages": ["pt-BR", "en"],
+	"debugI18n": false,
+	"namespaces": ["common"]
+}
