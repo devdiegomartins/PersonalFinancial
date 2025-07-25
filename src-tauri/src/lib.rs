@@ -12,6 +12,7 @@ pub fn run() {
 
     // Settings tauri plugins
     let builder = builder.plugin(tauri_plugin_opener::init());
+    let builder = builder.plugin(tauri_plugin_fs::init());
 
     // Construct State Management of application
     let builder = state_management(builder);

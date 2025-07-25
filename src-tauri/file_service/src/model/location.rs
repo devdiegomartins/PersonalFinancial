@@ -9,7 +9,7 @@ pub struct Location {
     pub app_install_location: String,
 }
 
-trait LocationTrait {
+pub trait LocationTrait {
     fn new() -> Self;
 }
 

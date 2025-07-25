@@ -18,9 +18,12 @@ tauri-build = { version = "2", features = [] }
 [dependencies]
 tauri = { version = "2", features = [] }
 tauri-plugin-opener = "2"
+tauri-plugin-fs = "2"
 serde = { version = "1", features = ["derive"] }
+serde_json = "1"
 uuid = { version = "1.17", features = ["v4"] }
 chrono = "0.4.41"
 dotenvy = "0.15"
 base64 = "0.22.1"
 data-encoding = "2.9.0"
+file_service = { path = "./file_service" }

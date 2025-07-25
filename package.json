@@ -1,37 +1,38 @@
 {
-  "name": "personal_financial",
-  "private": true,
-  "version": "0.1.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "tauri": "tauri",
-    "prepare": "husky"
-  },
-  "dependencies": {
-    "@tauri-apps/api": "^2",
-    "@tauri-apps/plugin-opener": "^2",
-    "i18next": "^25.3.2",
-    "i18next-browser-languagedetector": "^8.2.0",
-    "i18next-http-backend": "^3.0.2",
-    "pagedone": "^1.2.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-i18next": "^15.6.1",
-    "react-router-dom": "6"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.1.2",
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
-    "@tauri-apps/cli": "^2",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.4",
-    "husky": "^9.1.7",
-    "typescript": "~5.6.2",
-    "vite": "^6.0.3"
-  }
+	"name": "personal_financial",
+	"private": true,
+	"version": "0.1.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"tauri": "tauri",
+		"prepare": "husky"
+	},
+	"dependencies": {
+		"@tauri-apps/api": "^2",
+		"@tauri-apps/plugin-opener": "^2",
+		"@tauri-apps/plugin-fs": "^2",
+		"i18next": "^25.3.2",
+		"i18next-browser-languagedetector": "^8.2.0",
+		"i18next-http-backend": "^3.0.2",
+		"pagedone": "^1.2.2",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"react-i18next": "^15.6.1",
+		"react-router-dom": "6"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.1.2",
+		"@commitlint/cli": "^19.8.1",
+		"@commitlint/config-conventional": "^19.8.1",
+		"@tauri-apps/cli": "^2",
+		"@types/react": "^18.3.1",
+		"@types/react-dom": "^18.3.1",
+		"@vitejs/plugin-react": "^4.3.4",
+		"husky": "^9.1.7",
+		"typescript": "~5.6.2",
+		"vite": "^6.0.3"
+	}
 }
