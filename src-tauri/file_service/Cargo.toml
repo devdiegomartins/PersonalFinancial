@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 bincode = "2.0.1"
 crypt_service = { path = "../crypt_service" }
+config = { path = "../config" }
 directories = "5.0"
 
 [dev-dependencies]

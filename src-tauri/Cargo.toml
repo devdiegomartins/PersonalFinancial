@@ -10,7 +10,7 @@ name = "personal_financial_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [workspace]
-members = ["crypt_service", "file_service", "utils"]
+members = [ "config","crypt_service", "file_service", "utils"]
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }

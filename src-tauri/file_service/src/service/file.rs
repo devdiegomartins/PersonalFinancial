@@ -2,6 +2,8 @@ use std::{fs, io::Error};
 
 use crypt_service::model::crypt::{Crypt, CryptTrait};
 
+use super::folder::create_recursive_folder;
+
 pub fn get_file(path_file: &str, buffer: &mut String) -> Result<(), Error> {
     let file: Vec<u8> = fs::read(path_file)?;
     let file_content: String = String::from_utf8(file).unwrap_or("Error reading file".to_string());
@@ -15,6 +17,8 @@ pub fn get_file(path_file: &str, buffer: &mut String) -> Result<(), Error> {
 
 pub fn save_file(path: &str, file_name: &str, data: String) -> Result<(), Error> {
     let location: String = format!("{}/{}", path, file_name);
+    create_recursive_folder(path);
+
     let data = Crypt::new(data, "key_parse");
     let data_bin = data.value.as_bytes().to_vec();
 
