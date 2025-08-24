@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import type { RouteObject } from "react-router-dom";
-import { HomePage } from "../pages/PageHelper";
+import { HomePage } from "../../pages/PageHelper";
 
 export const dashboardRoutes: RouteObject[] = [
 	{

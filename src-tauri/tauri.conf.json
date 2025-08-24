@@ -12,51 +12,15 @@
 	"app": {
 		"windows": [
 			{
-				"label": "splash",
-				"title": "Personal Financial - Splash",
+				"label": "Main_Window",
+				"title": "Personal Financial",
 				"width": 800,
 				"height": 800,
 				"center": true,
 				"decorations": true,
 				"transparent": false,
-				"alwaysOnTop": true,
+				"alwaysOnTop": false,
 				"skipTaskbar": true
-			},
-			{
-				"label": "auth",
-				"title": "Personal Financial - Autenticação",
-				"width": 800,
-				"height": 600,
-				"center": true,
-				"visible": false
-			},
-			{
-				"label": "first-access",
-				"title": "Personal Financial - Primeiro Acesso",
-				"width": 800,
-				"height": 600,
-				"center": true,
-				"visible": false
-			},
-			{
-				"label": "dashboard",
-				"title": "Personal Financial - Dashboard",
-				"width": 1200,
-				"height": 800,
-				"center": true,
-				"visible": false,
-				"minWidth": 800,
-				"minHeight": 600
-			},
-			{
-				"label": "error",
-				"title": "Personal Financial - Erro",
-				"width": 600,
-				"height": 400,
-				"center": true,
-				"visible": false,
-				"alwaysOnTop": true,
-				"resizable": false
 			}
 		],
 		"security": {

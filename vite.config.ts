@@ -1,6 +1,7 @@
+import path from "node:path";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import path from "node:path";
 
 const host = process.env.TAURI_DEV_HOST;
 
@@ -17,7 +18,7 @@ export default defineConfig(async () => ({
 			"~services": path.resolve(__dirname, "src/services"),
 		},
 	},
-	plugins: [react()],
+	plugins: [react(), tailwindcss()],
 
 	// Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
 	//
