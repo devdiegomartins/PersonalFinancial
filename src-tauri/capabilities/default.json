@@ -3,5 +3,25 @@
 	"identifier": "default",
 	"description": "Capability for the main window",
 	"windows": ["main"],
-	"permissions": ["core:default", "opener:default", "fs:default"]
+	"permissions": [
+		"core:default",
+		"opener:default",
+		"fs:default",
+
+		"core:window:allow-close",
+		"core:window:allow-is-resizable",
+		"core:window:allow-is-decorated",
+		"core:window:allow-is-always-on-top",
+		"core:window:allow-set-resizable",
+		"core:window:allow-inner-size",
+		"core:window:allow-title",
+		"core:window:allow-set-decorations",
+		"core:window:allow-set-always-on-top",
+		"core:window:allow-set-closable",
+		"core:window:allow-center",
+		"core:window:allow-inner-position",
+		"core:window:allow-set-size",
+		"core:window:allow-set-title",
+		"core:window:allow-current-monitor"
+	]
 }

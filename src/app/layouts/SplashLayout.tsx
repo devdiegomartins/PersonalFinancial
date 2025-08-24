@@ -1,5 +1,7 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom'
+import { useWindowSettings } from '~/domain/window/hooks/useWindowSettings'
 
 export const SplashLayout = () => {
-	return <Outlet />;
-};
+  useWindowSettings('close')
+  return <Outlet />
+}

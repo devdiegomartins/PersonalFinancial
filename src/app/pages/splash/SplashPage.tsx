@@ -1,3 +1,3 @@
 export const SplashPage = () => {
-	return <div>SplashPage</div>;
-};
+  return <div>SplashPage</div>
+}

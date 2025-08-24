@@ -23,7 +23,8 @@
 				"useImportType": "error"
 			},
 			"correctness": {
-				"noUnusedImports": "error"
+				"noUnusedImports": "error",
+				"useExhaustiveDependencies": "off"
 			}
 		}
 	},
@@ -33,9 +34,9 @@
 			"semicolons": "asNeeded",
 			"indentStyle": "space",
 			"indentWidth": 2,
-            "lineWidth": 90,
-            "trailingCommas": "es5",
-            "arrowParentheses": "asNeeded"
+			"lineWidth": 90,
+			"trailingCommas": "es5",
+			"arrowParentheses": "asNeeded"
 		}
 	},
 	"assist": {

@@ -1,5 +1,7 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom'
+import { useWindowSettings } from '~/domain/window/hooks/useWindowSettings'
 
 export const ErrorLayout = () => {
-	return <Outlet />;
-};
+  useWindowSettings('user')
+  return <Outlet />
+}
