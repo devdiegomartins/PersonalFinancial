@@ -1,1 +1,37 @@
 @import "tailwindcss";
+
+
+/*
+	Disable text selection globally and set cursor to default (arrow).
+	Re-enable selection and appropriate cursors for interactive elements so UX remains correct.
+*/
+:root, html, body, #root {
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none;    /* Old Firefox */
+	-ms-user-select: none;     /* IE10+/Edge */
+	user-select: none;         /* Standard */
+	cursor: default;
+}
+
+/* Allow selection and proper cursors on interactive controls */
+a,
+button,
+input,
+textarea,
+select,
+[contenteditable],
+[contenteditable="true"],
+[contenteditable=""] {
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+	cursor: auto; /* restores expected cursor (pointer for links is handled below) */
+}
+
+/* Links should show pointer cursor */
+a,
+a * {
+	cursor: pointer;
+}
+

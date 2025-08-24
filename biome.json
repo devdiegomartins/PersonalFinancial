@@ -29,7 +29,13 @@
 	},
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "double"
+			"quoteStyle": "single",
+			"semicolons": "asNeeded",
+			"indentStyle": "space",
+			"indentWidth": 2,
+            "lineWidth": 90,
+            "trailingCommas": "es5",
+            "arrowParentheses": "asNeeded"
 		}
 	},
 	"assist": {

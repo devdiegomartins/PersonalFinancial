@@ -1,0 +1,29 @@
+{
+  "defaultLanguage": "en",
+  "acceptAnyInputLanguage": true,
+  "matchResponseToInputLanguage": true,
+  "responseLanguagePolicy": "match_input",
+  "responseStyle": "concise",
+  "rules": [
+    "Include type checks",
+    "Avoid changes that break public APIs without notice",
+    "Accept instructions in any language and respond in the requested language for chat/explanations",
+    "When generating or modifying code: write ALL code and comments in English"
+  ],
+  "codePolicy": {
+    "codeLanguage": "en",
+    "commentsLanguage": "en",
+    "forceEnglishForCode": true
+  },
+  "promptTemplate": "You are an experienced programming assistant. For chat/explanations, respond in the same language as the user's request. IMPORTANT: when generating or modifying code, write ALL code and comments in English. Start with a 3-step plan, then the requested code, and finally a test checklist.",
+  "examples": [
+    {
+      "label": "Add unit tests",
+      "prompt": "Write Jest tests for function X covering success and network failure. Respond in the user's language for the explanation; the code and comments must be in English."
+    },
+    {
+      "label": "Bug fix",
+      "prompt": "Fix the race condition in function Y; return your answer in the same language as the request and ensure all modified code and comments are in English."
+    }
+  ]
+}

@@ -1,13 +1,13 @@
 import { Suspense } from "react";
 import type { RouteObject } from "react-router-dom";
-import { HomePage } from "../../pages/PageHelper";
+import { LazyHomePage } from "../../pages/PageHelper";
 
 export const dashboardRoutes: RouteObject[] = [
 	{
-		path: "/", // TODO temp
+		path: "/dashboard",
 		element: (
 			<Suspense fallback={<div>Loading...</div>}>
-				<HomePage />
+				<LazyHomePage />
 			</Suspense>
 		),
 	},

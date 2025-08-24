@@ -14,13 +14,13 @@
 			{
 				"label": "Main_Window",
 				"title": "Personal Financial",
-				"width": 800,
-				"height": 800,
+				"width": 600,
+				"height": 240,
 				"center": true,
-				"decorations": true,
-				"transparent": false,
-				"alwaysOnTop": false,
-				"skipTaskbar": true
+				"decorations": false,
+				"alwaysOnTop": true,
+				"resizable": false,
+				"closable": false
 			}
 		],
 		"security": {
