@@ -1,53 +1,62 @@
 {
-	"rust-analyzer.cargo.workspaceRoot": "./src-tauri",
-	"editor.formatOnSave": true,
-	"editor.formatOnPaste": true,
-	"editor.codeActionsOnSave": {
-		"source.organizeImports": "always",
-		"source.organizeImports.biome": "always",
-		"source.fixAll.biome": "always",
-		"source.fixAll": "always"
-	},
-	"[typescript]": {
-		"editor.defaultFormatter": "biomejs.biome",
-		"editor.formatOnSave": true,
-		"editor.codeActionsOnSave": {
-			"source.organizeImports": "always",
-			"source.organizeImports.biome": "always",
-			"source.fixAll.biome": "always"
-		}
-	},
-	"[typescriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome",
-		"editor.formatOnSave": true,
-		"editor.codeActionsOnSave": {
-			"source.organizeImports": "always",
-			"source.organizeImports.biome": "always",
-			"source.fixAll.biome": "always"
-		}
-	},
-	"[javascript]": {
-		"editor.defaultFormatter": "biomejs.biome",
-		"editor.formatOnSave": true,
-		"editor.codeActionsOnSave": {
-			"source.organizeImports": "always",
-			"source.organizeImports.biome": "always",
-			"source.fixAll.biome": "always"
-		}
-	},
-	"[javascriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome",
-		"editor.formatOnSave": true,
-		"editor.codeActionsOnSave": {
-			"source.organizeImports": "always",
-			"source.organizeImports.biome": "always",
-			"source.fixAll.biome": "always"
-		}
-	},
-	"biome.lintOnSave": true,
-	"biome.organizeImportsOnSave": true,
-	"biome.requireConfiguration": false,
-    "charmed-icons.associations.files": {
-        "vite.config.ts": "vite"
-    },
+  "rust-analyzer.cargo.workspaceRoot": "./src-tauri",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always",
+    "source.organizeImports.biome": "always",
+    "source.fixAll.biome": "always",
+    "source.fixAll": "always"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always",
+      "source.organizeImports.biome": "always",
+      "source.fixAll.biome": "always"
+    }
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always",
+      "source.organizeImports.biome": "always",
+      "source.fixAll.biome": "always"
+    }
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always",
+      "source.organizeImports.biome": "always",
+      "source.fixAll.biome": "always"
+    }
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always",
+      "source.organizeImports.biome": "always",
+      "source.fixAll.biome": "always"
+    }
+  },
+  "biome.lintOnSave": true,
+  "biome.organizeImportsOnSave": true,
+  "biome.requireConfiguration": false,
+  "charmed-icons.associations.files": {
+    "vite.config.ts": "vite"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    [
+      "cva\\(([^)]*)\\)",
+      "[\"'`]([^\"'`]*).*?[\"'`]"
+    ]
+  ],
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript"
+  }
 }
