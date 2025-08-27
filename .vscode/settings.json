@@ -47,8 +47,12 @@
   "biome.lintOnSave": true,
   "biome.organizeImportsOnSave": true,
   "biome.requireConfiguration": false,
+  // Ajuste: a chave correta para o tema é "charmed-icons.files.associations" e globs recursivos com **/*. 
+  // (Removido bloco antigo "charmed-icons.associations.files")
   "charmed-icons.associations.files": {
-    "vite.config.ts": "vite"
+    "vite.config.ts": "vite",
+    "**/*Types.ts": "typescript-def",
+    "**/*Styles.ts": "tailwind"
   },
   "tailwindCSS.experimental.classRegex": [
     [

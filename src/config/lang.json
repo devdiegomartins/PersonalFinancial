@@ -6,5 +6,5 @@
 	},
 	"supportLanguages": ["pt-BR", "en"],
 	"debugI18n": false,
-	"namespaces": ["common"]
+	"namespaces": ["common", "format"]
 }

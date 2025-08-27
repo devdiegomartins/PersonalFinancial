@@ -23,7 +23,8 @@
 				"noExplicitAny": "warn"
 			},
 			"style": {
-				"useImportType": "error"
+				"useImportType": "error",
+        "noDescendingSpecificity": "off"
 			},
 			"correctness": {
 				"noUnusedImports": "error",
