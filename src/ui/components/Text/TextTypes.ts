@@ -1,4 +1,11 @@
-export type TextStyleType = 'heading64' | 'heading32' | 'heading16' | 'body' | 'caption'
+export type TextStyleType =
+  | 'heading64'
+  | 'heading48'
+  | 'heading32'
+  | 'heading24'
+  | 'heading16'
+  | 'body'
+  | 'caption'
 
 export type TextProps = {
   style?: TextStyleType
