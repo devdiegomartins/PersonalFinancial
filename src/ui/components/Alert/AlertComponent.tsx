@@ -5,21 +5,19 @@ import { alertVariants } from './AlertStyles'
 import type { AlertProps } from './AlertTypes'
 
 const variantIcon: Record<NonNullable<AlertProps['variant']>, IconsNames> = {
-  success: 'RiCheckDoubleLine',
-  danger: 'RiErrorWarningLine',
+  success: 'RiCheckLine',
+  danger: 'RiSpam2Line',
   warning: 'RiAlertLine',
   info: 'RiInformationLine',
 }
 
-const sizeIcon: Record<NonNullable<AlertProps['size']>, number> = {}
-
-const Alert = ({ variant, size, title, description, customIcon, ref }: AlertProps) => {
+const Alert = ({ variant, title, description, customIcon, ref }: AlertProps) => {
   const variantIconName = variantIcon[variant]
 
   return (
-    <div className={alertVariants({ variant, size })} ref={ref}>
-      <div className="flex flex-row items-start justify-start gap-2">
-        <div>
+    <div className={alertVariants({ variant })} ref={ref}>
+      <div className="flex flex-row items-center justify-start gap-2">
+        <div className="text-3xl">
           <Icon name={customIcon ?? variantIconName} />
         </div>
 
@@ -29,7 +27,11 @@ const Alert = ({ variant, size, title, description, customIcon, ref }: AlertProp
       </div>
 
       {description && (
-        <Text element="div" style="body">
+        <Text
+          element="div"
+          style="body"
+          className="border-t border-white/10 pt-2 text-neutral-200"
+        >
           {description}
         </Text>
       )}

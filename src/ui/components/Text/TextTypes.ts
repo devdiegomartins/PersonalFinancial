@@ -10,4 +10,5 @@ export type TextStyleType =
 export type TextProps = {
   style?: TextStyleType
   element?: 'span' | 'p' | 'div' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'label'
+  className?: string
 }
