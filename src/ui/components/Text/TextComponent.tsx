@@ -8,7 +8,34 @@ export const Text = ({
   style = 'body',
   element = 'span',
   className,
+  weight,
+  tone,
+  align,
+  transform,
+  italic,
+  underline,
+  strike,
+  truncate,
 }: PropsWithChildren<TextProps>) => {
   const Element = element
-  return <Element className={cn(className, textStyles({ style }))}>{children}</Element>
+  return (
+    <Element
+      className={cn(
+        textStyles({
+          style,
+          weight,
+          tone,
+          align,
+          transform,
+          italic,
+          underline,
+          strike,
+          truncate,
+        }),
+        className
+      )}
+    >
+      {children}
+    </Element>
+  )
 }
