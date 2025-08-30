@@ -1,30 +1,81 @@
 import React from 'react'
 import { cn } from '~/ui/utils'
+import { Spinner } from '../Spinner/SpinnerComponent'
 import { buttonVariants } from './ButtonStyles'
 import type { ButtonProps, ButtonRef } from './ButtonTypes'
 
-// NOTE: cn is intentionally left as-is per user instruction.
-
 const Button = React.forwardRef<ButtonRef, ButtonProps>(
-  ({ className, variant, size, element = 'button', ...props }, ref) => {
-    const Component = element
-    if (Component === 'a') {
-      const anchorProps = props as React.AnchorHTMLAttributes<HTMLAnchorElement>
+  (
+    {
+      className,
+      variant,
+      size,
+      shape,
+      element = 'button',
+      isLoading,
+      fullWidth,
+      startIcon,
+      endIcon,
+      children,
+      ...rest
+    },
+    ref
+  ) => {
+    const classes = cn(
+      buttonVariants({ variant, size, shape, loading: isLoading ? true : false }),
+      fullWidth && 'w-full',
+      className
+    )
+
+    const content = (
+      <>
+        {isLoading && (
+          <span className="absolute inset-0 flex items-center justify-center">
+            <Spinner
+              size={size?.startsWith('icon') ? 'md' : 'sm'}
+              tone="inherit"
+              label="Carregando"
+              className={cn(size?.startsWith('icon') && 'size-5')}
+            />
+          </span>
+        )}
+        <span className={cn('inline-flex items-center gap-2', isLoading && 'opacity-0')}>
+          {startIcon && <span className="-ml-1 flex items-center">{startIcon}</span>}
+          {children}
+          {endIcon && <span className="-mr-1 flex items-center">{endIcon}</span>}
+        </span>
+      </>
+    )
+
+    if (element === 'a') {
+      const { disabled, ...anchorProps } =
+        rest as React.AnchorHTMLAttributes<HTMLAnchorElement> & { disabled?: boolean }
+      const anchorDisabled = disabled || isLoading
       return (
         <a
-          className={cn(buttonVariants({ variant, size, className }))}
           ref={ref as React.Ref<HTMLAnchorElement>}
+          className={cn(
+            classes,
+            anchorDisabled && 'cursor-not-allowed pointer-events-none opacity-60'
+          )}
+          aria-disabled={anchorDisabled || undefined}
           {...anchorProps}
-        />
+        >
+          {content}
+        </a>
       )
     }
-    const buttonProps = props as React.ButtonHTMLAttributes<HTMLButtonElement>
+
+    const buttonProps = rest as React.ButtonHTMLAttributes<HTMLButtonElement>
     return (
       <button
-        className={cn(buttonVariants({ variant, size, className }))}
         ref={ref as React.Ref<HTMLButtonElement>}
+        className={cn(classes, isLoading && 'cursor-wait')}
+        disabled={isLoading || buttonProps.disabled}
         {...buttonProps}
-      />
+      >
+        {content}
+      </button>
     )
   }
 )

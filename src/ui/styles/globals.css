@@ -14,6 +14,7 @@
 }
 
 /* Allow selection and proper cursors on interactive controls */
+/* Re-enable selection for interactive controls */
 a,
 button,
 input,
@@ -26,11 +27,18 @@ select,
 	-moz-user-select: text;
 	-ms-user-select: text;
 	user-select: text;
-	cursor: auto; /* restores expected cursor (pointer for links is handled below) */
 }
 
-/* Links should show pointer cursor */
+/* Pointer cursor for clickable elements (buttons / links) */
+button,
+button *:not(input):not(textarea),
 a,
-a * {
+a *:not(input):not(textarea) {
 	cursor: pointer;
+}
+
+/* Disabled overrides (utility classes still win) */
+button:disabled,
+button:disabled * {
+	cursor: not-allowed !important;
 }
