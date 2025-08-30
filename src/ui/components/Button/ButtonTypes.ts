@@ -8,6 +8,8 @@ interface AdditionalButtonProps {
   element?: 'button' | 'a'
   /** Display a spinner & disable interactions (keeps width). */
   isLoading?: boolean
+  /** Display skeleton placeholder instead of content (layout loading). */
+  isFetching?: boolean
   /** Force the button to expand to full container width. */
   fullWidth?: boolean
   /** Optional leading icon element. */

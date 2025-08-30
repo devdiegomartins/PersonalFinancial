@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Icon } from '../Icon/IconComponent'
 import { Button } from './ButtonComponent'
 
-// Storybook meta configuration -------------------------------------------------
 const meta = {
   title: 'UI/Basic/Button',
   component: Button,
@@ -71,6 +70,10 @@ const meta = {
     isLoading: {
       control: 'boolean',
       description: 'Shows a spinner and disables the button.',
+    },
+    isFetching: {
+      control: 'boolean',
+      description: 'Shows a skeleton placeholder and disables the button.',
     },
     fullWidth: {
       control: 'boolean',
@@ -169,6 +172,8 @@ export const Disabled: Story = {
 
 // Loading -------------------------------------------------------------------
 export const Loading: Story = { args: { isLoading: true } }
+
+export const Fetching: Story = { args: { isFetching: true } }
 
 // With start / end icons ----------------------------------------------------
 export const WithStartIcon: Story = {

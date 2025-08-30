@@ -1,5 +1,6 @@
 import React from 'react'
 import { cn } from '~/ui/utils'
+import { Skeleton } from '../Skeleton/SkeletonComponent'
 import { Spinner } from '../Spinner/SpinnerComponent'
 import { buttonVariants } from './ButtonStyles'
 import type { ButtonProps, ButtonRef } from './ButtonTypes'
@@ -13,6 +14,7 @@ const Button = React.forwardRef<ButtonRef, ButtonProps>(
       shape,
       element = 'button',
       isLoading,
+      isFetching,
       fullWidth,
       startIcon,
       endIcon,
@@ -22,7 +24,7 @@ const Button = React.forwardRef<ButtonRef, ButtonProps>(
     ref
   ) => {
     const classes = cn(
-      buttonVariants({ variant, size, shape, loading: isLoading ? true : false }),
+      buttonVariants({ variant, size, shape, loading: !!isLoading }),
       fullWidth && 'w-full',
       className
     )
@@ -39,18 +41,37 @@ const Button = React.forwardRef<ButtonRef, ButtonProps>(
             />
           </span>
         )}
-        <span className={cn('inline-flex items-center gap-2', isLoading && 'opacity-0')}>
+        <span
+          className={cn(
+            'inline-flex items-center gap-2',
+            (isLoading || isFetching) && 'opacity-0'
+          )}
+        >
           {startIcon && <span className="-ml-1 flex items-center">{startIcon}</span>}
           {children}
           {endIcon && <span className="-mr-1 flex items-center">{endIcon}</span>}
         </span>
+        {isFetching && !isLoading && (
+          <span className="absolute inset-0 flex items-center justify-center">
+            <Skeleton
+              decorative
+              animation="pulse"
+              tone="contrast"
+              className={cn(
+                'w-full h-full',
+                shape === 'pill' && 'rounded-full',
+                shape === 'square' && 'rounded-md'
+              )}
+            />
+          </span>
+        )}
       </>
     )
 
     if (element === 'a') {
       const { disabled, ...anchorProps } =
         rest as React.AnchorHTMLAttributes<HTMLAnchorElement> & { disabled?: boolean }
-      const anchorDisabled = disabled || isLoading
+      const anchorDisabled = disabled || isLoading || isFetching
       return (
         <a
           ref={ref as React.Ref<HTMLAnchorElement>}
@@ -70,8 +91,8 @@ const Button = React.forwardRef<ButtonRef, ButtonProps>(
     return (
       <button
         ref={ref as React.Ref<HTMLButtonElement>}
-        className={cn(classes, isLoading && 'cursor-wait')}
-        disabled={isLoading || buttonProps.disabled}
+        className={cn(classes, (isLoading || isFetching) && 'cursor-wait')}
+        disabled={isLoading || isFetching || buttonProps.disabled}
         {...buttonProps}
       >
         {content}
