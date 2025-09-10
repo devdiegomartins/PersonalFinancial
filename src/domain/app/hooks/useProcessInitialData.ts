@@ -34,7 +34,7 @@ export const useProcessInitialData = () => {
   }
 
   async function readyToUse() {
-    navigate('/dashboard', {
+    navigate('/auth', {
       replace: true,
     })
   }

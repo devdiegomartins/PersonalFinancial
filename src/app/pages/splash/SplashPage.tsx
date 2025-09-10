@@ -15,10 +15,10 @@ export const SplashPage = () => {
 
   return (
     <div className="flex flex-col gap-4 items-stretch justify-between h-full p-10">
-      <div className="flex flex-row gap-4 items-center justify-center w-full ">
+      <div className="flex flex-row gap-4 items-center justify-center w-full">
         <BrandAsset size={90} />
 
-        <div className="">
+        <div>
           <Text element="h1" style="heading32">
             {tApp('title')}
           </Text>
