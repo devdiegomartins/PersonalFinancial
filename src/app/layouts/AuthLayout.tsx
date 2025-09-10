@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import { useWindowSettings } from '~/domain/window/hooks/useWindowSettings'
 import { useText } from '~/shared/hooks/useText/useText'
 import { BrandAsset } from '~/ui/assets/BrandAsset'
+import { Box } from '~/ui/components/Box/BoxComponent'
 import { Text } from '~/ui/components/Text/TextComponent'
 
 export const AuthLayout = () => {
@@ -10,7 +11,7 @@ export const AuthLayout = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <div className="bg-slate-800 shadow-2xl rounded-2xl flex flex-col min-w-2/5">
+      <Box className="flex flex-col min-w-2/5">
         <div className="flex flex-col gap-2 items-center justify-center w-full p-8">
           <BrandAsset size={120} />
 
@@ -26,7 +27,7 @@ export const AuthLayout = () => {
         </div>
 
         <Outlet />
-      </div>
+      </Box>
     </div>
   )
 }

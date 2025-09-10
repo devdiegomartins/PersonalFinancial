@@ -7,6 +7,19 @@ export const LazySplashPage = lazyWithRetry(() =>
   }))
 )
 
+//#region First Access Pages
+export const LazyFirstAccessCreateProfilePage = lazyWithRetry(() =>
+  import('./first-access/CreateProfilePage').then(module => ({
+    default: module.CreateProfilePage,
+  }))
+)
+
+export const LazyFirstAccessSecretPage = lazyWithRetry(() =>
+  import('./first-access/SecretPage').then(module => ({
+    default: module.SecretPage,
+  }))
+)
+
 // #region Auth Pages
 export const LazyLoginPage = lazyWithRetry(() =>
   import('./auth/LoginPage').then(module => ({

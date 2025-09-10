@@ -34,7 +34,7 @@ export const useProcessInitialData = () => {
   }
 
   async function readyToUse() {
-    navigate('/auth', {
+    navigate('/first-access', {
       replace: true,
     })
   }
