@@ -1,4 +1,4 @@
-export const TimezoneLocales = [
+export const TimezoneLocalesEnum = [
   'Africa/Abidjan',
   'Africa/Accra',
   'Africa/Addis_Ababa',
@@ -425,4 +425,4 @@ export const TimezoneLocales = [
   'Pacific/Wallis',
 ] as const
 
-export type TimezoneLocales = (typeof TimezoneLocales)[number]
+export type TimezoneLocalesEnumType = (typeof TimezoneLocalesEnum)[number]

@@ -21,7 +21,7 @@
 				"alwaysOnTop": true,
 				"resizable": false,
 				"closable": false,
-				"titleBarStyle": "Overlay"
+				"titleBarStyle": "Visible"
 			}
 		],
 		"security": {

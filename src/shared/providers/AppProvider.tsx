@@ -1,10 +1,10 @@
-import { LanguageProvider } from "./Language/LanguageProvider";
-import { RouterProvider } from "./RouterProvider";
+import { LanguageProvider } from './Language/LanguageProvider'
+import { RouterProvider } from './RouterProvider'
 
 export const AppProvider = () => {
-	return (
-		<LanguageProvider>
-			<RouterProvider />
-		</LanguageProvider>
-	);
-};
+  return (
+    <LanguageProvider>
+      <RouterProvider />
+    </LanguageProvider>
+  )
+}

@@ -1,0 +1,9 @@
+{
+	"app_status": {
+		"initializing": "Carragendo dados de inicialização da aplicação",
+		"loading_users": "Carregando usuários",
+		"loading_data": "Carregando dados",
+		"first_access": "Primeiro acesso",
+		"ready": "Pronto para uso. Redirecionando..."
+	}
+}

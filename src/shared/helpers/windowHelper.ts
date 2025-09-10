@@ -125,7 +125,7 @@ export async function setWindowConfig(props?: WindowConfigType): Promise<Window>
     currentWindow.setSize(mergedProps.size as LogicalSize),
   ])
 
-  currentWindow.center()
+  await currentWindow.center()
 
   return currentWindow
 }

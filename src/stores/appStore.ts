@@ -1,9 +1,9 @@
-import type { TimezoneLocales } from '~/domain/enums/Timezone'
+import type { TimezoneLocalesEnumType } from '~/domain/enums/Timezone'
 import { createStore } from './create'
 
 type AppStoreType = {
   isDrawerOpen: boolean
-  timezone: TimezoneLocales | null
+  timezone: TimezoneLocalesEnumType | null
 }
 
 export const appStore = createStore<AppStoreType>('app_store', {

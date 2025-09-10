@@ -15,7 +15,7 @@ export const useWindowSettings = (type: WindowPreconfigOptionsType) => {
   }
 
   async function userWindow() {
-    const size = await getPercentualWindowSizeByMonitorSize(60)
+    const size = await getPercentualWindowSizeByMonitorSize(70)
     await setWindowConfig({
       isResizable: true,
       isAlwaysOnTop: false,
