@@ -1,8 +1,8 @@
 import { addons } from '@storybook/manager-api'
-import { personalFinancialDark } from './theme'
+import { personalFinanceDark } from './theme'
 
 addons.setConfig({
-  theme: personalFinancialDark,
+  theme: personalFinanceDark,
   panelPosition: 'right',
   enableShortcuts: true,
 })

@@ -17,7 +17,7 @@ impl LocationTrait for Location {
     fn new() -> Self {
         let app_name: String = env::var("APP_NAME").unwrap_or_else(|e| {
             eprintln!("Error getting app name: {}", e);
-            "Personal Financial".to_string()
+            "Personal Finance".to_string()
         });
 
         let user_dirs: UserDirs = match UserDirs::new() {

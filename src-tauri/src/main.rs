@@ -6,5 +6,5 @@ fn main() {
         Err(e) => eprintln!("Failure when load environments, erro: {}", e.to_string()),
     };
 
-    personal_financial_lib::run()
+    personal_finance_lib::run()
 }

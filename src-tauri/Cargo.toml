@@ -1,12 +1,12 @@
 [package]
-name = "personal_financial"
+name = "personal_finance"
 version = "0.1.0"
-description = "A Personal Financial App"
+description = "A Personal Finance App"
 authors = ["Diego Martins <diegoribeiromartins@gmail.com>"]
 edition = "2021"
 
 [lib]
-name = "personal_financial_lib"
+name = "personal_finance_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [workspace]

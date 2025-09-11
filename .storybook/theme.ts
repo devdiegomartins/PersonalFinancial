@@ -1,8 +1,8 @@
 import { create } from '@storybook/theming'
 
-export const personalFinancialDark = create({
+export const personalFinanceDark = create({
   base: 'dark',
-  brandTitle: 'Personal Financial UI',
+  brandTitle: 'Personal Finance UI',
   brandUrl: 'https://github.com/devdiegomartins',
   brandTarget: '_blank',
   colorPrimary: '#3b82f6', // tailwind blue-500

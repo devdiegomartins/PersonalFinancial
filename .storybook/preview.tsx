@@ -1,6 +1,6 @@
 import { LanguageProvider } from '../src/shared/providers/Language/LanguageProvider'
 import '../src/ui/styles/globals.css'
-import { personalFinancialDark } from './theme'
+import { personalFinanceDark } from './theme'
 
 type StoryFnLike = (args?: Record<string, unknown>) => JSX.Element
 const withProviders = (Story: StoryFnLike) => {
@@ -21,7 +21,7 @@ const preview = {
       },
     },
     a11y: { test: 'todo' },
-    docs: { theme: personalFinancialDark },
+    docs: { theme: personalFinanceDark },
   },
 }
 

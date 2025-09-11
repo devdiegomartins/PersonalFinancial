@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "personal_financial",
+      "name": "personal_finance",
       "dependencies": {
         "@hookform/resolvers": "^5.2.1",
         "@tailwindcss/vite": "^4.1.12",
