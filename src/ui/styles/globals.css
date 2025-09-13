@@ -67,3 +67,18 @@ button:disabled * {
 .animate-progress-indeterminate {
 	animation: progress-indeterminate 1.2s ease-in-out infinite;
 }
+
+/* Z-index system for consistent layering */
+:root {
+	/* Tooltip layer - above most content but below modals */
+	--z-tooltip: 1000;
+	/* Modal/Overlay layer - highest priority UI elements */  
+	--z-modal: 1100;
+	/* Popover layer - between tooltip and modal */
+	--z-popover: 1050;
+}
+
+/* Tailwind z-index utilities */
+.z-tooltip { z-index: var(--z-tooltip); }
+.z-popover { z-index: var(--z-popover); }
+.z-modal { z-index: var(--z-modal); }

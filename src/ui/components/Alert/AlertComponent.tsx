@@ -11,7 +11,14 @@ const variantIcon: Record<NonNullable<AlertProps['variant']>, IconsNames> = {
   info: 'RiInformationLine',
 }
 
-const Alert = ({ variant, title, description, customIcon, ref }: AlertProps) => {
+const Alert = ({
+  variant,
+  title,
+  description,
+  customDescription,
+  customIcon,
+  ref,
+}: AlertProps) => {
   const variantIconName = variantIcon[variant]
 
   return (
@@ -26,14 +33,16 @@ const Alert = ({ variant, title, description, customIcon, ref }: AlertProps) => 
         </Text>
       </div>
 
-      {description && (
-        <Text
-          element="div"
-          style="body"
-          className="border-t border-white/10 pt-2 text-neutral-200"
-        >
-          {description}
-        </Text>
+      {(customDescription || description) && (
+        <div className="border-t border-white/10 pt-2 text-neutral-200">
+          {customDescription ? (
+            customDescription
+          ) : (
+            <Text element="div" style="body">
+              {description}
+            </Text>
+          )}
+        </div>
       )}
     </div>
   )

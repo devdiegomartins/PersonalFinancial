@@ -8,6 +8,7 @@ export type AlertProps = Omit<AlertVariantType, 'variant'> & {
   variant: Exclude<AlertVariantType['variant'], null | undefined>
   title: string
   description?: string
+  customDescription?: React.ReactNode
   customIcon?: IconsNames
   ref?: React.Ref<HTMLDivElement>
 }

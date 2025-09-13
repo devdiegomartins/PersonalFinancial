@@ -37,6 +37,12 @@ const meta = {
       description: 'Optional supporting text. Hidden when empty.',
       table: { type: { summary: 'string | undefined' } },
     },
+    customDescription: {
+      control: false,
+      description:
+        'Custom ReactNode for description. Takes priority over description prop.',
+      table: { type: { summary: 'React.ReactNode | undefined' } },
+    },
     customIcon: {
       control: { type: 'select' },
       options: Object.keys(icons),
@@ -102,6 +108,27 @@ export const CustomIcon: Story = {
     description: 'This alert uses a custom icon instead of the default info icon.',
   },
   name: 'Custom icon',
+}
+
+// Story: custom description with ReactNode ---------------------------------
+export const CustomDescription: Story = {
+  args: {
+    variant: 'warning',
+    title: 'Rich content',
+    customDescription: (
+      <div className="text-neutral-200">
+        This alert uses a <strong>custom description</strong> with <em>formatted text</em>
+        .
+        <br />
+        It supports <strong>bold text</strong>, <em>italic text</em>, and{' '}
+        <u>line breaks</u>.
+        <br />
+        <br />
+        You can include any React components here!
+      </div>
+    ),
+  },
+  name: 'Custom description with rich content',
 }
 
 // Composite: all variants side-by-side -------------------------------------
