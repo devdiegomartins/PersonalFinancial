@@ -27,11 +27,7 @@ export const useProcessInitialData = () => {
     [AppStatusEnum.READY]: readyToUse,
   }
 
-  async function initialSetup() {
-    setTimeout(() => {
-      dispatch({ status: AppStatusEnum.READY })
-    }, 1000)
-  }
+  async function initialSetup() {}
 
   async function readyToUse() {
     navigate('/first-access', {

@@ -13,17 +13,17 @@ use sha2::{Digest, Sha256};
 pub struct Crypt {
     pub original_value: String,
     pub value: String,
-    pub key_parse: &'static str,
+    pub key_parse: String,
     pub created_at: DateTime<Utc>,
 }
 
 pub trait CryptTrait: Sized {
-    fn new(original_value: String, key_parse: &'static str) -> Self;
-    fn decrypt(encrypted_value: &str, key_parse: &'static str) -> Result<Self, String>;
+    fn new(original_value: String, key_parse: String) -> Self;
+    fn decrypt(encrypted_value: &str, key_parse: String) -> Result<Self, String>;
 }
 
 impl CryptTrait for Crypt {
-    fn new(original_value: String, key_parse: &'static str) -> Self {
+    fn new(original_value: String, key_parse: String) -> Self {
         let created_at = Utc::now();
 
         let mut hasher = Sha256::default();
@@ -53,7 +53,7 @@ impl CryptTrait for Crypt {
         }
     }
 
-    fn decrypt(encrypted_value: &str, key_parse: &'static str) -> Result<Self, String> {
+    fn decrypt(encrypted_value: &str, key_parse: String) -> Result<Self, String> {
         let combined = STANDARD
             .decode(encrypted_value)
             .map_err(|e| format!("Falha ao decodificar base64: {}", e))?;
