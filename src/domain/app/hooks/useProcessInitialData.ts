@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppStatusEnum, type AppStatusEnumType } from '~/domain/enums/App'
+import { loadingInitialDataService } from '~/services/api/startup/loadingInitialData'
 import { useCreateState } from '~/shared/hooks/useCreateState/useCreateState'
 import { useText } from '~/shared/hooks/useText/useText'
 
@@ -21,13 +22,26 @@ export const useProcessInitialData = () => {
 
   const exec = {
     [AppStatusEnum.INITIALIZING]: initialSetup,
-    [AppStatusEnum.LOADING_USERS]: () => {},
+    [AppStatusEnum.LOADING_USERS]: loadingUsers,
     [AppStatusEnum.LOADING_DATA]: () => {},
     [AppStatusEnum.FIRST_ACCESS]: () => {},
     [AppStatusEnum.READY]: readyToUse,
   }
 
-  async function initialSetup() {}
+  async function initialSetup() {
+    try {
+      const response = await loadingInitialDataService()
+      console.log({ response })
+
+      dispatch({ status: AppStatusEnum.LOADING_USERS })
+    } catch (e: unknown) {
+      console.error(e)
+    }
+  }
+
+  async function loadingUsers() {
+    console.log('Loading users')
+  }
 
   async function readyToUse() {
     navigate('/first-access', {

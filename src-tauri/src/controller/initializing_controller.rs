@@ -4,22 +4,30 @@ use file_service::{
 };
 use std::sync::Mutex;
 
-use crate::model::app::{AppSession, AppStatus};
+use crate::{
+    handlers::response::{DefaultResponseTrait, Response},
+    model::app::{AppSession, AppStatus},
+};
 
 #[tauri::command]
 pub async fn loading_initial_data(
     app_status_state: tauri::State<'_, Mutex<AppStatus>>,
     session_status_state: tauri::State<'_, Mutex<AppSession>>,
-) -> Result<(), String> {
+) -> Result<Response<()>, String> {
     let location: Location = LocationTrait::new();
 
-    let mut session_data_buffer = String::from("");
-    get_bin_file(&location.app_data, &mut session_data_buffer)
-        .await
-        .map_err(|e| e.to_string())?;
+    // Verifica se o arquivo existe antes de tentar ler
+    let session_data: Vec<AppSession> = if std::path::Path::new(&location.app_data).exists() {
+        let mut session_data_buffer = String::from("");
+        get_bin_file(&location.app_data, &mut session_data_buffer)
+            .await
+            .map_err(|e| e.to_string())?;
 
-    let session_data: Vec<AppSession> =
-        serde_json::from_str(&session_data_buffer).map_err(|e| e.to_string())?;
+        serde_json::from_str(&session_data_buffer).map_err(|e| e.to_string())?
+    } else {
+        // Se o arquivo não existe, retorna um vetor vazio (primeiro acesso)
+        Vec::new()
+    };
 
     // Exemplo de como acessar e modificar os states
     // Para ler o estado atual:
@@ -36,5 +44,5 @@ pub async fn loading_initial_data(
         }
     }
 
-    Ok(())
+    Ok(Response::new((), true))
 }

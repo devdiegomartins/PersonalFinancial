@@ -1,6 +1,7 @@
 use crate::{controller::controller, service::state_management::state_management};
 
 mod controller;
+mod handlers;
 mod model;
 mod repository;
 mod service;
