@@ -1,9 +1,10 @@
-use chrono::{DateTime, Utc};
+use chrono::Utc;
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 use crate::model::token::{Token, TokenTrait};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct User {
     pub id: Uuid,
     pub name: String,
@@ -11,16 +12,16 @@ pub struct User {
     pub email: String,
     pub login: String,
     pub password: String,
-    pub updated_at: DateTime<Utc>,
-    pub created_at: DateTime<Utc>,
+    pub updated_at: String,
+    pub created_at: String,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserSession {
     pub id: Uuid,
     pub user_id: Uuid,
     pub token: Token,
-    pub created_at: DateTime<Utc>,
+    pub created_at: String,
 }
 
 // #region Implementations
@@ -42,8 +43,8 @@ impl User {
             email,
             login,
             password,
-            updated_at: now,
-            created_at: now,
+            updated_at: now.to_string(),
+            created_at: now.to_string(),
         }
     }
 }
@@ -58,7 +59,7 @@ impl UserSession {
             id,
             user_id,
             token,
-            created_at: now,
+            created_at: now.to_string(),
         }
     }
 }

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppStatusEnum, type AppStatusEnumType } from '~/domain/enums/App'
 import { loadingInitialDataService } from '~/services/api/startup/loadingInitialData'
+import { loadingInitialUsersService } from '~/services/api/startup/loadingInitialUsers'
 import { useCreateState } from '~/shared/hooks/useCreateState/useCreateState'
 import { useText } from '~/shared/hooks/useText/useText'
 
@@ -30,8 +31,7 @@ export const useProcessInitialData = () => {
 
   async function initialSetup() {
     try {
-      const response = await loadingInitialDataService()
-      console.log({ response })
+      await loadingInitialDataService()
 
       dispatch({ status: AppStatusEnum.LOADING_USERS })
     } catch (e: unknown) {
@@ -40,7 +40,12 @@ export const useProcessInitialData = () => {
   }
 
   async function loadingUsers() {
-    console.log('Loading users')
+    try {
+      const response = await loadingInitialUsersService()
+      console.log({ response })
+    } catch (e: unknown) {
+      console.error(e)
+    }
   }
 
   async function readyToUse() {

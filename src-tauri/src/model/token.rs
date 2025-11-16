@@ -1,4 +1,5 @@
 use chrono::{DateTime, Utc};
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 use crate::service::gen_token::{gen_token, read_token};
@@ -8,11 +9,11 @@ pub trait TokenTrait {
     fn read(token: String) -> Self;
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Token {
     pub id: Uuid,
     pub token: String,
-    pub created_at: DateTime<Utc>,
+    pub created_at: String,
 }
 
 impl TokenTrait for Token {
@@ -30,7 +31,7 @@ impl TokenTrait for Token {
         Self {
             id,
             token,
-            created_at: now,
+            created_at: now.to_string(),
         }
     }
 
@@ -50,7 +51,7 @@ impl TokenTrait for Token {
         Self {
             id,
             token,
-            created_at,
+            created_at: created_at.to_string(),
         }
     }
 }
