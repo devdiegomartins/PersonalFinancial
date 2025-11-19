@@ -35,7 +35,11 @@ impl CryptTrait for Crypt {
 
         let nonce = Aes256Gcm::generate_nonce(&mut OsRng);
 
-        let value_to_encrypt = format!("{}.{}", original_value, created_at.timestamp());
+        let value_to_encrypt = format!(
+            "{}|||TIMESTAMP|||{}",
+            original_value,
+            created_at.timestamp()
+        );
 
         let encrypted_value = cipher
             .encrypt(&nonce, value_to_encrypt.as_bytes())
@@ -82,13 +86,19 @@ impl CryptTrait for Crypt {
             .map_err(|e| format!("Falha ao converter para string: {}", e))?;
 
         let (original_value, created_at) = {
-            let parts: Vec<&str> = decrypted_value.split('.').collect();
-            let original_value = parts[0].to_string();
-
-            let created_at = parts[1].parse::<i64>().unwrap();
-            let created_at = DateTime::from_timestamp(created_at, 0).unwrap();
-
-            (original_value, created_at)
+            if let Some((value_part, timestamp_part)) =
+                decrypted_value.split_once("|||TIMESTAMP|||")
+            {
+                let original_value = value_part.to_string();
+                let created_at = timestamp_part
+                    .parse::<i64>()
+                    .map_err(|e| format!("Falha ao fazer parse do timestamp: {}", e))?;
+                let created_at = DateTime::from_timestamp(created_at, 0)
+                    .ok_or_else(|| "Timestamp inválido".to_string())?;
+                (original_value, created_at)
+            } else {
+                return Err("Formato de dados descriptografados inválido".to_string());
+            }
         };
 
         Ok(Self {

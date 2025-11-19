@@ -1,8 +1,9 @@
 use file_service::{
+    helper::checker::check_exists,
     model::location::{Location, LocationTrait},
-    service::file::get_bin_file,
+    service::file::{get_bin_file, save_bin_file},
 };
-use std::sync::Mutex;
+use std::{sync::Mutex, thread};
 
 use crate::{
     handlers::response::{DefaultResponseTrait, Response},
@@ -11,6 +12,7 @@ use crate::{
         user::User,
     },
     repository::users::get_all_users,
+    sign::enums::app_enums::AppStatusEnum,
 };
 
 #[tauri::command]
@@ -19,28 +21,32 @@ pub async fn loading_initial_data(
     session_status_state: tauri::State<'_, Mutex<AppSession>>,
 ) -> Result<Response<()>, String> {
     let location: Location = LocationTrait::new();
-
-    // Verifica se o arquivo existe antes de tentar ler
-    let session_data: Vec<AppSession> = if std::path::Path::new(&location.app_data).exists() {
+    let session_data: Vec<AppSession> = if check_exists(&location.session_data_path) {
         let mut session_data_buffer = String::from("");
-        get_bin_file(&location.app_data, &mut session_data_buffer)
+        get_bin_file(&location.session_data_path, &mut session_data_buffer)
             .await
             .map_err(|e| e.to_string())?;
-
         serde_json::from_str(&session_data_buffer).map_err(|e| e.to_string())?
     } else {
-        // Se o arquivo não existe, retorna um vetor vazio (primeiro acesso)
-        Vec::new()
+        let app_session = vec![AppSession {
+            id: 1,
+            status: AppStatusEnum::ContentLoading,
+            created_at: chrono::Utc::now().to_string(),
+        }];
+        save_bin_file(
+            &location.app_data,
+            "session_data",
+            serde_json::to_string(&app_session).unwrap(),
+        )
+        .map_err(|e| e.to_string())?;
+        app_session
     };
 
-    // Exemplo de como acessar e modificar os states
-    // Para ler o estado atual:
     {
         let app_status = app_status_state.lock().unwrap();
         println!("Current version: {}", app_status.version);
     }
 
-    // Para modificar o estado:
     {
         let mut session_status = session_status_state.lock().unwrap();
         if let Some(first_session) = session_data.first() {

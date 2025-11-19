@@ -5,15 +5,25 @@ use std::{env, fs, io::Error};
 static APP_KEY_PARSE: &str = "key_parse";
 
 pub async fn get_bin_file(path_file: &str, buffer: &mut String) -> Result<(), Error> {
+    // Ler e decodificar com bincode
     let conf = bincode::config::standard();
     let file: Vec<u8> = fs::read(path_file)?;
-    let file_decoded = match bincode::decode_from_slice(&file, conf) {
-        Ok((data, _)) => data,
-        Err(e) => return Err(Error::new(std::io::ErrorKind::Other, e.to_string())),
-    };
-    let file_content: String =
-        String::from_utf8(file_decoded).unwrap_or("Error reading file".to_string());
-    *buffer = file_content;
+    let (encrypted_base64, _): (String, usize) = bincode::decode_from_slice(&file, conf)
+        .map_err(|e| Error::new(std::io::ErrorKind::Other, e.to_string()))?;
+
+    // Descriptografar o conteúdo base64
+    let decrypted = Crypt::decrypt(
+        &encrypted_base64,
+        env::var("SIGN_PRIVATE").unwrap_or(APP_KEY_PARSE.to_string()),
+    )
+    .map_err(|e| {
+        Error::new(
+            std::io::ErrorKind::Other,
+            format!("Decryption error: {}", e),
+        )
+    })?;
+
+    *buffer = decrypted.original_value;
 
     Ok(())
 }
@@ -43,11 +53,14 @@ pub fn save_bin_file(path: &str, file_name: &str, data: String) -> Result<(), Er
         ));
     }
 
-    let data = Crypt::new(
+    let encrypted = Crypt::new(
         data,
         env::var("SIGN_PRIVATE").unwrap_or(APP_KEY_PARSE.to_string()),
     );
-    let data_bin = data.value.as_bytes().to_vec();
+
+    let conf = bincode::config::standard();
+    let data_bin = bincode::encode_to_vec(&encrypted.value, conf)
+        .map_err(|e| Error::new(std::io::ErrorKind::Other, e.to_string()))?;
 
     fs::write(location, data_bin)?;
 
