@@ -25,7 +25,7 @@ export const useProcessInitialData = () => {
     [AppStatusEnum.INITIALIZING]: initialSetup,
     [AppStatusEnum.LOADING_USERS]: loadingUsers,
     [AppStatusEnum.LOADING_DATA]: () => {},
-    [AppStatusEnum.FIRST_ACCESS]: () => {},
+    [AppStatusEnum.FIRST_ACCESS]: firstAccess,
     [AppStatusEnum.READY]: readyToUse,
   }
 
@@ -42,17 +42,23 @@ export const useProcessInitialData = () => {
   async function loadingUsers() {
     try {
       const response = await loadingInitialUsersService()
-      console.log({ response })
+      dispatch({
+        status:
+          response.data.length === 0 ? AppStatusEnum.FIRST_ACCESS : AppStatusEnum.READY,
+      })
     } catch (e: unknown) {
       console.error(e)
     }
   }
 
-  async function readyToUse() {
+  function firstAccess() {
+    console.log('navegar para first access')
     navigate('/first-access', {
       replace: true,
     })
   }
+
+  async function readyToUse() {}
 
   async function runProcess() {
     dispatch({ status: AppStatusEnum.INITIALIZING })

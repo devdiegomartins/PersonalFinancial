@@ -1,3 +1,5 @@
 {
-    "test": "BR LANG"
+    "buttons": {
+      "continue": "Continuar"
+    }
 }

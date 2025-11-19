@@ -1,0 +1,18 @@
+{
+  "placeholders": {
+    "name": "Digite seu nome",
+    "lastName": "Digite seu sobrenome",
+    "email": "Digite seu e-mail",
+    "id": "Digite o seu ID",
+    "password": "Digite sua senha",
+    "confirmPassword": "Confirme sua senha"
+  },
+  "labels": {
+    "name": "Nome",
+    "lastName": "Sobrenome",
+    "email": "E-mail",
+    "id": "Identificação",
+    "password": "Senha",
+    "confirmPassword": "Confirmar Senha"
+  }
+}

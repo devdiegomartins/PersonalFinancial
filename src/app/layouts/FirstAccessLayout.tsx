@@ -10,7 +10,7 @@ export const FirstAccessLayout = () => {
   useWindowSettings('user')
 
   return (
-    <div className="flex justify-center w-full py-8">
+    <div className="flex justify-center items-center w-full min-h-dvh py-8">
       <Box className="flex flex-col w-11/12 sm:w-3/6 md:3/5 lg:2/6" variant="elevated">
         <div className="flex flex-col gap-2 items-center justify-center w-full p-8">
           <BrandAsset size={120} />

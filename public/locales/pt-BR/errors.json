@@ -1,0 +1,13 @@
+{
+  "fields": {
+    "required_name": "O campo Nome é obrigatório.",
+    "required_lastName": "O campo Sobrenome é obrigatório.",
+    "required_email": "O campo Email é obrigatório.",
+    "invalid_email": "O email fornecido é inválido.",
+    "required_id": "O campo ID é obrigatório.",
+    "required_password": "O campo Senha é obrigatório.",
+    "min_length_password": "A Senha deve ter no mínimo 6 caracteres.",
+    "required_confirmPassword": "O campo Confirmação de senha é obrigatório.",
+    "passwords_must_match": "As senhas não coincidem."
+  }
+}

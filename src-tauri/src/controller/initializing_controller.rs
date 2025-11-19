@@ -3,7 +3,7 @@ use file_service::{
     model::location::{Location, LocationTrait},
     service::file::{get_bin_file, save_bin_file},
 };
-use std::{sync::Mutex, thread};
+use std::sync::Mutex;
 
 use crate::{
     handlers::response::{DefaultResponseTrait, Response},

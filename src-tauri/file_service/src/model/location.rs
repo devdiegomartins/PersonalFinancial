@@ -7,8 +7,10 @@ pub struct Location {
     pub user_documents: String,
     pub app_data: String,
     pub app_install_location: String,
-    pub session_data_path: String,
     pub app_default_extension: String,
+
+    pub users_data_path: String,
+    pub session_data_path: String,
 }
 
 pub trait LocationTrait {
@@ -52,13 +54,15 @@ impl LocationTrait for Location {
 
         let session_data_path =
             format!("{}/{}.{}", app_data, "session_data", app_default_extension);
+        let users_data_path = format!("{}/{}.{}", app_data, "users_data", app_default_extension);
 
         Self {
             user_documents,
             app_data,
             app_install_location,
-            session_data_path,
             app_default_extension,
+            session_data_path,
+            users_data_path,
         }
     }
 }
