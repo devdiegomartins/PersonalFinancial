@@ -3,13 +3,10 @@ use std::sync::Mutex;
 use tauri::{Builder, Manager, Wry};
 use uuid::Uuid;
 
-use crate::{
-    model::{
-        app::{AppSession, AppStatus},
-        token::TokenTrait,
-        user::{User, UserSession},
-    },
-    sign::enums::app_enums::AppStatusEnum,
+use crate::model::{
+    app::{AppSession, AppSessionTrait, AppStatus},
+    token::TokenTrait,
+    user::{User, UserSession},
 };
 
 pub fn state_management(builder: Builder<Wry>) -> Builder<Wry> {
@@ -19,11 +16,7 @@ pub fn state_management(builder: Builder<Wry>) -> Builder<Wry> {
             last_updated_at: Utc::now().to_string(),
         }));
 
-        app.manage(Mutex::new(AppSession {
-            id: 0,
-            status: AppStatusEnum::Initializing,
-            created_at: Utc::now().to_string(),
-        }));
+        app.manage(Mutex::new(AppSession::new()));
 
         app.manage(Mutex::new(UserSession {
             id: Uuid::nil(),
